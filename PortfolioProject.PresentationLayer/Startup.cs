@@ -58,6 +58,9 @@ namespace PortfolioProject.PresentationLayer
 
             services.AddScoped<IServiceService, ServiceManager>();
             services.AddScoped<IServiceDAL, EfServiceDAL>();
+
+            services.AddScoped<IMessageService, MessageManager>();
+            services.AddScoped<IMessageDAL, EfMessageDAL>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
