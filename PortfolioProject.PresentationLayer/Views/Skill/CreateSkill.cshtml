@@ -1,0 +1,19 @@
+﻿@model PortfolioProject.EntityLayer.Concrete.Skill
+@{
+    ViewData["Title"] = "Yetenek Ekle";
+    Layout = "~/Views/Shared/_adminLayout.cshtml";
+}
+            <form method="post" class="form-group">
+    <br />   <br />   <br />   <br />
+                <div class="mb-3">
+                    <label for="title" class="form-label">Yetenek Başlığı</label>
+                    <input type="text" class="form-control" id="title" name="Title" placeholder="Örn: C#, JavaScript" required />
+                </div>
+
+                <div class="mb-3">
+                    <label for="value" class="form-label">Değer (%)</label>
+                    <input type="number" class="form-control" id="value" name="Value" min="0" max="100" placeholder="0-100 arası" required />
+                </div>
+
+                <button type="submit" class="btn btn-success">Kaydet</button>
+            </form>

@@ -8,5 +8,17 @@ namespace PortfolioProject.PresentationLayer.Controllers
         {
             return PartialView();
         }
+        public PartialViewResult PartialTopNavbar()
+        {
+            return PartialView();
+        }
+        public PartialViewResult PartialScript()
+        {
+            return PartialView();
+        }
+        public PartialViewResult PartialHead()
+        {
+            return PartialView();
+        }
     }
 }

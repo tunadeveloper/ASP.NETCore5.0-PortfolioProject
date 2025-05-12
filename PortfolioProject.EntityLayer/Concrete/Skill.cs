@@ -12,6 +12,6 @@ namespace PortfolioProject.EntityLayer.Concrete
         [Key]
         public int SkillID { get; set; }
         public string Title { get; set; }
-        public string Value { get; set; }
+        public int Value { get; set; }
     }
 }
