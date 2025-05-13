@@ -4,12 +4,32 @@
 }
 
 <!DOCTYPE html>
+<html lang="en">
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>_WriterLayout</title>
-</head>
+@await Html.PartialAsync("/Areas/Writer/Views/Default/HeadPartial.cshtml")
+
 <body>
+    <div class="container-scroller">
+        <!-- partial:../../partials/_navbar.html -->
+        @await Html.PartialAsync("/Areas/Writer/Views/Default/NavbarPartial.cshtml")
+        <!-- partial -->
+        <div class="container-fluid page-body-wrapper">
+
+            @await Html.PartialAsync("/Areas/Writer/Views/Default/SideBarPartial.cshtml")
+            <!-- partial -->
+            <div class="main-panel">
+                <div class="content-wrapper">
+                    <div class="row">
+                        @RenderBody()
+                    </div>
+                </div>
+                @await Html.PartialAsync("/Areas/Writer/Views/Default/FooterPartial.cshtml")
+            </div>
+            <!-- main-panel ends -->
+        </div>
+        <!-- page-body-wrapper ends -->
+    </div>
+    @await Html.PartialAsync("/Areas/Writer/Views/Default/ScriptPartial.cshtml")
 </body>
+
 </html>
