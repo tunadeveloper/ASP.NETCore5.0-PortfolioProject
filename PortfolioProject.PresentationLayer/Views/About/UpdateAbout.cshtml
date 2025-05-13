@@ -1,0 +1,42 @@
+﻿@model PortfolioProject.EntityLayer.Concrete.About
+@{
+    ViewData["Title"] = "UpdateAbout";
+    Layout = "~/Views/Shared/_adminLayout.cshtml";
+}
+<div class="card-header border-0">
+    <h3 class="mb-0">Hakkımda</h3>
+</div>
+<form method="post" class="form-group">
+    <br />   <br />   <br />   <br />
+    <input type="hidden" name="AboutID" value="@Model.AboutID" />
+    <div class="mb-3">
+        <label for="title" class="form-label">Başlık</label>
+        <input type="text" class="form-control" id="title" name="Title" value="@Model.Title" required />
+    </div>
+    <div class="mb-3">
+        <label for="title" class="form-label">Açıklama</label>
+        <textarea class="form-control" id="description" name="Description" rows="3" required>@Model.Description</textarea>
+    </div>
+    <div class="mb-3">
+        <label for="title" class="form-label">Yaş</label>
+        <input type="text" class="form-control" id="title" name="Age" value="@Model.Age" required />
+    </div>
+    <div class="mb-3">
+        <label for="title" class="form-label">E-Posta</label>
+        <input type="email" class="form-control" id="title" name="Email" value="@Model.Email" required />
+    </div>
+    <div class="mb-3">
+        <label for="title" class="form-label">Telefon</label>
+        <input type="text" class="form-control" id="title" name="Phone" value="@Model.Phone" required />
+    </div>
+    <div class="mb-3">
+        <label for="title" class="form-label">Adres</label>
+        <input type="text" class="form-control" id="title" name="Address" value="@Model.Address" required />
+    </div>
+    <div class="mb-3">
+        <label for="title" class="form-label">Görsel URL</label>
+        <input type="text" class="form-control" id="title" name="ImageUrl" value="@Model.ImageUrl" required />
+    </div>
+
+    <button type="submit" class="btn btn-success">Kaydet</button>
+</form>

@@ -1,0 +1,26 @@
+﻿
+@{
+    ViewData["Title"] = "CreateService";
+    Layout = "~/Views/Shared/_adminLayout.cshtml";
+}
+
+@model PortfolioProject.EntityLayer.Concrete.Service
+
+<div class="card-header border-0">
+    <h3 class="mb-0">Hizmetler</h3>
+</div>
+<form method="post" class="form-group">
+    <br />   <br />
+
+    <div class="mb-3">
+        <label for="title" class="form-label">Başlık</label>
+        <input class="form-control" id="description" name="Title" required/>
+    </div>
+
+    <div class="mb-3">
+        <label for="title" class="form-label">Görsel Url</label>
+        <input type="text" class="form-control" id="title" name="ImageUrl" required />
+    </div>
+
+    <button type="submit" class="btn btn-success">Kaydet</button>
+</form>

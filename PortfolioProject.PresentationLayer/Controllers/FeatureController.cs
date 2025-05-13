@@ -1,12 +1,29 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using PortfolioProject.BusinessLayer.Abstract;
+using PortfolioProject.EntityLayer.Concrete;
 
 namespace PortfolioProject.PresentationLayer.Controllers
 {
     public class FeatureController : Controller
     {
-        public IActionResult Index()
+        private readonly IFeatureService _featureService;
+
+        public FeatureController(IFeatureService featureService)
         {
-            return View();
+            _featureService = featureService;
+        }
+
+        public IActionResult UpdateFeature()
+        {
+            var values = _featureService.TGetById(1);
+            return View(values);
+        }
+
+        [HttpPost]
+        public IActionResult UpdateFeature(Feature feature)
+        {
+            _featureService.TUpdate(feature);
+            return RedirectToAction("Index", "Default");
         }
     }
 }

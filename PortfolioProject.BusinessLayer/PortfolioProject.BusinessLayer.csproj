@@ -23,8 +23,4 @@
     <ProjectReference Include="..\PortfolioProject.EntityLayer\PortfolioProject.EntityLayer.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Validation\" />
-  </ItemGroup>
-
 </Project>
