@@ -1,0 +1,31 @@
+﻿@model PortfolioProject.EntityLayer.Concrete.Portfolio
+@{
+    ViewData["Title"] = "CreatePortfolio";
+    Layout = "~/Views/Shared/_adminLayout.cshtml";
+}
+
+<form method="post" class="form-group">
+    <br />   <br />   <br />   <br />
+    <div class="mb-3">
+        <label for="title" class="form-label">Proje Adı</label>
+        <input type="text" class="form-control" id="title" name="Name"  />
+        @Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger" })
+    </div>
+    <div class="mb-3">
+        <label for="title" class="form-label">1. Görsel URL</label>
+        <input type="text" class="form-control" id="title" name="ImageUrl" required />
+        @Html.ValidationMessageFor(m => m.ImageUrl, "", new { @class = "text-danger" })
+    </div>
+    <div class="mb-3">
+        <label for="title" class="form-label">2. Görsel URL</label>
+        <input type="text" class="form-control" id="title" name="ImageUrl2" required />
+        @Html.ValidationMessageFor(m => m.ImageUrl2, "", new { @class = "text-danger" })
+    </div>
+    <div class="mb-3">
+        <label for="title" class="form-label">Proje URL</label>
+        <input type="text" class="form-control" id="title" name="ProjectUrl" required />
+        @Html.ValidationMessageFor(m => m.ProjectUrl, "", new { @class = "text-danger" })
+    </div>
+
+    <button type="submit" class="btn btn-success">Kaydet</button>
+</form>
