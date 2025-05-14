@@ -10,6 +10,8 @@ using PortfolioProject.BusinessLayer.Concrete;
 using PortfolioProject.DataAccessLayer.Abstract;
 using PortfolioProject.DataAccessLayer.Concrete;
 using PortfolioProject.DataAccessLayer.EntityFramework;
+using PortfolioProject.EntityLayer.Concrete;
+using PortfolioProject.PresentationLayer.Areas.Writer.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -61,6 +63,8 @@ namespace PortfolioProject.PresentationLayer
 
             services.AddScoped<IMessageService, MessageManager>();
             services.AddScoped<IMessageDAL, EfMessageDAL>();
+
+            services.AddIdentity<WriterUser, WriterRole>().AddEntityFrameworkStores<Context>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
