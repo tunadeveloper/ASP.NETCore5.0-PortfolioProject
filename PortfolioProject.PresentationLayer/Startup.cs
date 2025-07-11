@@ -64,6 +64,9 @@ namespace PortfolioProject.PresentationLayer
             services.AddScoped<IMessageService, MessageManager>();
             services.AddScoped<IMessageDAL, EfMessageDAL>();
 
+            services.AddScoped<IAnnouncementService, AnnouncementManager>();
+            services.AddScoped<IAnnouncementDal, EfAnnouncementDal>();
+
             services.AddIdentity<WriterUser, WriterRole>().AddEntityFrameworkStores<Context>();
         }
 
@@ -82,7 +85,7 @@ namespace PortfolioProject.PresentationLayer
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
+            app.UseAuthentication();
             app.UseRouting();
 
             app.UseAuthorization();

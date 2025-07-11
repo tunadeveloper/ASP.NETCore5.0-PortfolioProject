@@ -43,7 +43,7 @@ namespace PortfolioProject.PresentationLayer.Areas.Writer.Controllers
 
                     if (result.Succeeded)
                     {
-                        return RedirectToAction("Index", "Login");
+                        return RedirectToAction("Index", "Login", "Writer" );
                     }
                     else
                     {
