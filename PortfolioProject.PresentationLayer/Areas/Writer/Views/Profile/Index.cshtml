@@ -1,0 +1,46 @@
+﻿@model PortfolioProject.PresentationLayer.Areas.Writer.Models.UserEditViewModel
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_WriterLayout.cshtml";
+}
+
+<div class="col-12 grid-margin stretch-card">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Profil Bilgilerini Düzenle</h4>
+          
+            <form class="forms-sample" method="post" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="exampleInputName1">İsim</label>
+                    <input type="text" class="form-control" id="exampleInputName1" placeholder="İsim" name="Name" value="@Model.Name">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputName1">Soyisim</label>
+                    <input type="text" class="form-control" id="exampleInputName1" placeholder="Soyisim" name="Surname" value="@Model.Surname">
+                </div>
+
+                <div class="form-group">
+                    <label for="exampleInputPassword4">Şifre</label>
+                    <input type="password" class="form-control" id="exampleInputPassword4" placeholder="Şifre" >
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword4">Şifre</label>
+                    <input type="password" class="form-control" id="exampleInputPassword4" placeholder="Şifreyi tekrar girin">
+                </div>
+                <div class="form-group">
+                    <label>Görsel Yükle</label>
+                    <input type="file" name="Picture">
+                    @* <div class="input-group col-xs-12">
+                        <input type="text" class="form-control file-upload-info" disabled placeholder="Seç">
+                        <span class="input-group-append">
+                            <button class="file-upload-browse btn btn-primary" type="button">Yükle</button>
+                        </span>
+                    </div> *@
+                </div>
+                <button type="submit" class="btn btn-primary mr-2">Gönder</button>
+                <button class="btn btn-light">Geri Dön</button>
+            </form>
+        </div>
+    </div>
+</div>
+
