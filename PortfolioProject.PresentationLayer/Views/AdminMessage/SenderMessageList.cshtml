@@ -1,0 +1,97 @@
+﻿@model List<PortfolioProject.EntityLayer.Concrete.WriterMessage>
+@{
+    ViewData["Title"] = "SenderMessageList";
+    Layout = "~/Views/Shared/_adminLayout.cshtml";
+    int count = 0;
+}
+
+<div class="card-header border-0">
+    <h3 class="mb-0">Giden Mesajlar</h3>
+</div>
+
+<div class="table-responsive">
+    <table class="table align-items-center table-flush">
+        <thead class="thead-light">
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Ad Soyad</th>
+                <th scope="col">E-Posta</th>
+                <th scope="col">Tarih</th>
+                <th scope="col">Sil</th>
+                <th scope="col">Mesajı Gör</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                count++;
+                <tr>
+                    <th>@count</th>
+                    <td>@item.ReceiverName</td>
+                    <td>@item.Receiver</td>
+                    <td>@item.Date.ToString("HH:mm dd MMMM")</td>
+                    <td>
+                        <a asp-controller="AdminMessage" asp-action="DeleteMessage" asp-route-id="@item.WriterMessageID" asp-route-source="sender" class="btn btn-danger">Sil</a>
+
+
+                    </td>
+                    <td>
+                        <button type="button"
+                                class="btn btn-success btn-sm view-message-btn"
+                                data-id="@item.WriterMessageID">
+                            Mesajı Gör
+                        </button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<a href="/AdminMessage/CreateMessage/" class="btn btn-success">Yeni Mesaj</a>
+<!-- Modal -->
+<div class="modal fade" id="messageModal" tabindex="-1" role="dialog" aria-labelledby="messageModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Mesaj Detayı</h5>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span>&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p><strong>Ad Soyad:</strong> <span id="modalName"></span></p>
+                <p><strong>E-Posta:</strong> <span id="modalMail"></span></p>
+                <p><strong>Tarih:</strong> <span id="modalDate"></span></p>
+                <p><strong>Mesaj:</strong></p>
+                <p id="modalContent" class="border p-2 bg-light rounded"></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- JS -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="/admin/assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $('.view-message-btn').on('click', function () {
+            const id = $(this).data('id');
+
+            $.ajax({
+                url: '/AdminMessage/GetMessageDetails/' + id,
+                type: 'GET',
+                success: function (data) {
+                    $('#modalName').text(data.senderName);
+                    $('#modalMail').text(data.senderEmail);
+                    $('#modalDate').text(data.date);
+                    $('#modalContent').text(data.content);
+                    $('#messageModal').modal('show');
+                },
+                error: function () {
+                    alert("Mesaj detayı alınamadı.");
+                }
+            });
+        });
+    });
+</script>

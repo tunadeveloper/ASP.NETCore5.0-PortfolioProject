@@ -1,0 +1,31 @@
+﻿
+@{
+    ViewData["Title"] = "CreateMessage";
+    Layout = "~/Views/Shared/_adminLayout.cshtml";
+}
+
+@model PortfolioProject.EntityLayer.Concrete.WriterMessage
+
+<div class="card-header border-0">
+    <h3 class="mb-0">Mesaj Gönder</h3>
+</div>
+<form method="post" class="form-group">
+    <br />   <br />
+
+    <div class="mb-3">
+        <label for="title" class="form-label">Konu</label>
+        <input class="form-control" id="description" name="Subject" required />
+    </div>
+
+    <div class="mb-3">
+        <label for="title" class="form-label">E-Posta Adresi</label>
+        <input type="text" class="form-control" id="title" name="Receiver" required />
+    </div>
+
+    <div class="mb-3">
+        <label for="title" class="form-label">Mesaj</label>
+        <textarea rows="5" class="form-control" name="Content" required></textarea>
+    </div>
+    <button type="submit" class="btn btn-success">Gönder</button>
+    <a href="/AdminMessage/SenderMessageList" class="btn btn-danger">Geri Dön</a>
+</form>

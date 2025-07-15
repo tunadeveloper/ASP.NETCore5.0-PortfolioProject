@@ -3,6 +3,7 @@ using PortfolioProject.DataAccessLayer.Concrete;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -23,9 +24,14 @@ namespace PortfolioProject.DataAccessLayer.Repository
             _context.SaveChanges();
         }
 
+        public List<T> GetListByFilter(Expression<Func<T, bool>> filter)
+        {
+            return _context.Set<T>().Where(filter).ToList();
+        }
+
         public T GetByID(int id)
         {
-           return _context.Set<T>().Find(id);
+            return _context.Set<T>().Find(id);
 
         }
 
@@ -36,7 +42,7 @@ namespace PortfolioProject.DataAccessLayer.Repository
 
         public void Insert(T entity)
         {
-           _context.Add(entity);
+            _context.Add(entity);
             _context.SaveChanges();
         }
 

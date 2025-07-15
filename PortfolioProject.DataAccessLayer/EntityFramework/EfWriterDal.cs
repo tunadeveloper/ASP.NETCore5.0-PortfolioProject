@@ -10,11 +10,10 @@ using System.Threading.Tasks;
 
 namespace PortfolioProject.DataAccessLayer.EntityFramework
 {
-    public class EfUserDal: GenericRepository<User>, IUserDal
+    public class EfWriterDal : GenericRepository<WriterMessage>, IWriterMessageDal
     {
-        public EfUserDal(Context context):base(context)
+        public EfWriterDal(Context context) : base(context)
         {
-
         }
     }
 }

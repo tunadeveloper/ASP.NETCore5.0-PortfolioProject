@@ -1,0 +1,26 @@
+﻿@{
+    ViewData["Title"] = "CreateMessage";
+    Layout = "~/Views/Shared/_WriterLayout.cshtml";
+}
+@model PortfolioProject.EntityLayer.Concrete.WriterMessage
+
+<div class="col-md-8 mx-auto">
+    <form asp-action="CreateMessage" method="post">
+        
+        <div class="mb-3">
+            <label for="ReceiverEmail" class="form-label">Alıcı Email</label>
+            <input type="email" class="form-control" id="ReceiverEmail" name="Receiver" placeholder="example@domain.com" required />
+        </div>
+        <div class="mb-3">
+            <label for="Subject" class="form-label">Konu</label>
+            <input type="text" class="form-control" id="Subject" name="Subject" placeholder="Mesaj konusu" required />
+        </div>
+        <div class="mb-3">
+            <label for="Content" class="form-label">Mesaj İçeriği</label>
+            <textarea class="form-control" id="Content" name="Content" rows="6" placeholder="Mesajınızı yazınız..." required></textarea>
+        </div>
+       
+        <a href="/Writer/Message/SenderMessage" class="btn btn-danger">Geri Dön</a>
+        <button type="submit" class="btn btn-primary">Gönder</button>
+    </form>
+</div>

@@ -44,6 +44,7 @@ namespace PortfolioProject.PresentationLayer.Areas.Writer.Controllers
             }
             user.Name = u.Name;
             user.Surname = u.Surname;
+            user.PasswordHash=_userManager.PasswordHasher.HashPassword(user, u.Password);
             var result = await _userManager.UpdateAsync(user);
             if (result.Succeeded)
             {

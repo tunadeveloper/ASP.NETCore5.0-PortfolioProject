@@ -1,0 +1,229 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_adminLayout.cshtml";
+}
+
+<!-- Header -->
+
+            <!-- Card stats -->
+            <div class="row">
+                <div class="col-xl-3 col-md-6">
+                    <div class="card card-stats">
+                        <!-- Card body -->
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col">
+                                    <h5 class="card-title text-uppercase text-muted mb-0">Proje</h5>
+                                    <span class="h2 font-weight-bold mb-0">@ViewBag.v1</span>
+                                </div>
+                                <div class="col-auto">
+                                    <div class="icon icon-shape bg-gradient-red text-white rounded-circle shadow">
+                                        <i class="ni ni-active-40"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="mt-3 mb-0 text-sm">
+                    <span class="text-nowrap">Toplam Proje Sayısı</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-md-6">
+                    <div class="card card-stats">
+                        <!-- Card body -->
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col">
+                                    <h5 class="card-title text-uppercase text-muted mb-0">Hİzmet</h5>
+                        <span class="h2 font-weight-bold mb-0">@ViewBag.v2</span>
+                                </div>
+                                <div class="col-auto">
+                                    <div class="icon icon-shape bg-gradient-orange text-white rounded-circle shadow">
+                                        <i class="ni ni-chart-pie-35"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="mt-3 mb-0 text-sm">
+                                <span class="text-nowrap">Toplam Hizmet Sayısı</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-md-6">
+                    <div class="card card-stats">
+                        <!-- Card body -->
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col">
+                                    <h5 class="card-title text-uppercase text-muted mb-0">Yetenek</h5>
+                        <span class="h2 font-weight-bold mb-0">@ViewBag.v3</span>
+                                </div>
+                                <div class="col-auto">
+                                    <div class="icon icon-shape bg-gradient-green text-white rounded-circle shadow">
+                                        <i class="ni ni-money-coins"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="mt-3 mb-0 text-sm">
+                                <span class="text-nowrap">Toplam Yetenek Sayısı</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-md-6">
+                    <div class="card card-stats">
+                        <!-- Card body -->
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col">
+                                    <h5 class="card-title text-uppercase text-muted mb-0">Deneyİm</h5>
+                        <span class="h2 font-weight-bold mb-0">@ViewBag.v4</span>
+                                </div>
+                                <div class="col-auto">
+                                    <div class="icon icon-shape bg-gradient-info text-white rounded-circle shadow">
+                                        <i class="ni ni-chart-bar-32"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="mt-3 mb-0 text-sm">
+                                <span class="text-nowrap">Toplam Deneyim Sayısı</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+<br />
+<br />
+<br />
+<br />
+<!-- Page content -->
+<div class="container-fluid mt--6">
+    <div class="row">
+        <div class="col-xl-12">
+            <div class="card">
+                <div class="card-header bg-transparent">
+                    <div class="row align-items-center">
+                        <div class="col">
+                            <h6 class="text-uppercase text-muted ls-1 mb-1">Grafik</h6>
+                            <h5 class="h3 mb-0">Yetenek Tablosu</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <!-- Chart -->
+                    <div class="chart">
+                        <canvas id="my-custom-skill-chart"></canvas>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $.ajax({
+            url: '/Dashboard/SkillChartData',
+            type: 'GET',
+            success: function (result) {
+                const labels = result.map(x => x.title);
+                const data = result.map(x => x.value);
+
+                const ctx = document.getElementById('my-custom-skill-chart').getContext('2d');
+
+                new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            label: 'Yetenekler',
+                            data: data,
+                            backgroundColor: [
+                                'rgba(0, 123, 255, 0.6)',
+                                'rgba(40, 167, 69, 0.6)',
+                                'rgba(255, 193, 7, 0.6)',
+                                'rgba(220, 53, 69, 0.6)',
+                                'rgba(108, 117, 125, 0.6)',
+                                'rgba(23, 162, 184, 0.6)'
+                            ],
+                            borderColor: [
+                                'rgba(0, 123, 255, 1)',
+                                'rgba(40, 167, 69, 1)',
+                                'rgba(255, 193, 7, 1)',
+                                'rgba(220, 53, 69, 1)',
+                                'rgba(108, 117, 125, 1)',
+                                'rgba(23, 162, 184, 1)'
+                            ],
+                            borderWidth: 1,
+                            borderRadius: 8,
+                            barThickness: 30
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        layout: {
+                            padding: {
+                                top: 10,
+                                bottom: 10,
+                                left: 0,
+                                right: 0
+                            }
+                        },
+                        legend: {
+                            display: true,
+                            labels: {
+                                fontColor: '#6c757d',
+                                fontSize: 14
+                            }
+                        },
+                        scales: {
+                            yAxes: [{
+                                gridLines: {
+                                    color: 'rgba(0,0,0,0.05)'
+                                },
+                                ticks: {
+                                    beginAtZero: true,
+                                    stepSize: 10,
+                                    max: 100,
+                                    fontColor: '#6c757d',
+                                    fontSize: 13
+                                }
+                            }],
+                            xAxes: [{
+                                gridLines: {
+                                    display: false
+                                },
+                                ticks: {
+                                    fontColor: '#6c757d',
+                                    fontSize: 13
+                                }
+                            }]
+                        },
+                        animation: {
+                            duration: 1000,
+                            easing: 'easeOutQuart'
+                        },
+                        tooltips: {
+                            enabled: true,
+                            backgroundColor: 'rgba(0,0,0,0.7)',
+                            titleFontColor: '#fff',
+                            bodyFontColor: '#fff',
+                            borderColor: '#ddd',
+                            borderWidth: 1
+                        }
+                    }
+                });
+            },
+            error: function (err) {
+                console.log("Hata oluştu:", err);
+            }
+        });
+    });
+</script>
+
+

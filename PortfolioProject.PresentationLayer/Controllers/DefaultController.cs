@@ -34,12 +34,13 @@ namespace PortfolioProject.PresentationLayer.Controllers
             return PartialView();
         }
         [HttpPost]
-        public PartialViewResult SendMessage(Message message)
+        public IActionResult SendMessage(Message message)
         {
             message.Date = Convert.ToDateTime(DateTime.Now.ToShortDateString());
             message.Status = true;
+            message.Date = DateTime.Now;
             _messageService.TInsert(message);
-            return PartialView();
+            return RedirectToAction("Index");
         }
     }
 }

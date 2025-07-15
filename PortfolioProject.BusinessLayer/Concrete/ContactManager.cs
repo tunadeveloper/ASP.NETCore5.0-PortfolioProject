@@ -4,6 +4,7 @@ using PortfolioProject.EntityLayer.Concrete;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -31,6 +32,11 @@ namespace PortfolioProject.BusinessLayer.Concrete
         public List<Contact> TGetList()
         {
            return _contactDAL.GetList();
+        }
+
+        public List<Contact> TGetListByFilter()
+        {
+            throw new NotImplementedException();
         }
 
         public void TInsert(Contact t)

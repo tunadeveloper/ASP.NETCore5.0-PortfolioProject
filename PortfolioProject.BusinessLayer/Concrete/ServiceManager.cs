@@ -4,6 +4,7 @@ using PortfolioProject.EntityLayer.Concrete;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -31,6 +32,11 @@ namespace PortfolioProject.BusinessLayer.Concrete
         public List<Service> TGetList()
         {
             return _serviceDal.GetList();
+        }
+
+        public List<Service> TGetListByFilter()
+        {
+            throw new NotImplementedException();
         }
 
         public void TInsert(Service t)

@@ -67,6 +67,9 @@ namespace PortfolioProject.PresentationLayer
             services.AddScoped<IAnnouncementService, AnnouncementManager>();
             services.AddScoped<IAnnouncementDal, EfAnnouncementDal>();
 
+            services.AddScoped<IWriterMessageService, WriterMessageManager>();
+            services.AddScoped<IWriterMessageDal, EfWriterMessageDal>();
+
             services.AddIdentity<WriterUser, WriterRole>().AddEntityFrameworkStores<Context>();
         }
 
@@ -93,16 +96,14 @@ namespace PortfolioProject.PresentationLayer
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
+                    name: "areas",
+                    pattern: "{area:exists}/{controller=Default}/{action=Index}/{id?}");
+
+                endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllerRoute(
-                  name: "areas",
-                  pattern: "{area:exists}/{controller=Default}/{action=Index}/{id?}"
-                );
-            });
+
         }
     }
 }
