@@ -77,20 +77,21 @@
         $('.view-message-btn').on('click', function () {
             const id = $(this).data('id');
 
-            $.ajax({
-                url: '/AdminMessage/GetMessageDetails/' + id,
-                type: 'GET',
-                success: function (data) {
-                    $('#modalName').text(data.senderName);
-                    $('#modalMail').text(data.senderEmail);
-                    $('#modalDate').text(data.date);
-                    $('#modalContent').text(data.content);
-                    $('#messageModal').modal('show');
-                },
-                error: function () {
-                    alert("Mesaj detayı alınamadı.");
-                }
-            });
+              $.ajax({
+        url: '/AdminMessage/GetReceiverMessageDetails/' + id,
+        type: 'GET',
+        success: function (data) {
+            $('#modalName').text(data.senderName);
+            $('#modalMail').text(data.senderEmail);
+            $('#modalDate').text(data.date);
+            $('#modalContent').text(data.content);
+            $('#messageModal').modal('show');
+        },
+        error: function () {
+            alert("Mesaj detayı alınamadı.");
+        }
+    });
+
         });
     });
 </script>

@@ -1,0 +1,33 @@
+﻿
+@{
+    ViewData["Title"] = "CreateTestimonial";
+    Layout = "~/Views/Shared/_adminLayout.cshtml";
+}
+
+@model PortfolioProject.EntityLayer.Concrete.Testimonial
+
+
+<form method="post" class="form-group">
+    <br />   <br />   <br />   <br />
+    <div class="mb-3">
+        <label for="title" class="form-label">Ad Soyad</label>
+        <input type="text" class="form-control" id="title" name="ClientName" required />
+    </div>
+    <div class="mb-3">
+        <label for="title" class="form-label">Şirket Adı</label>
+        <input type="text" class="form-control" id="title" name="CompanyName" required />
+    </div>
+    <div class="mb-3">
+        <label for="title" class="form-label">Yorum</label>
+        <textarea class="form-control" id="description" name="Comment" rows="3"required></textarea>
+    </div>
+    <div class="mb-3">
+        <label for="title" class="form-label">Görsel URL</label>
+        <input type="text" class="form-control" id="title" name="ImageUrl" required />
+    </div>
+
+    <button type="submit" class="btn btn-success">Kaydet</button>
+</form>
+
+
+

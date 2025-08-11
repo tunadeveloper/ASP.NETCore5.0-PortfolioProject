@@ -49,6 +49,9 @@ namespace PortfolioProject.PresentationLayer
             services.AddScoped<IContactService, ContactManager>();
             services.AddScoped<IContactDAL, EfContactDAL>();
 
+            services.AddScoped<ISocialMediaService, SocialMediaManager>();
+            services.AddScoped<ISocialMediaDAL, EfSocialMediaDAL>();
+
             services.AddScoped<IExperienceService, ExperienceManager>();
             services.AddScoped<IExperienceDAL, EfExperienceDAL>();
 

@@ -1,0 +1,43 @@
+﻿
+@{
+    ViewData["Title"] = "UpdateSocialMedia";
+    Layout = "~/Views/Shared/_adminLayout.cshtml";
+}
+
+@model PortfolioProject.EntityLayer.Concrete.SocialMedia
+
+
+<form method="post" class="form-group">
+    <br />   <br />   <br />   <br />
+    <input type="hidden" name="SocialMediaID" value="@Model.SocialMediaID" />
+    <div class="mb-3">
+        <label for="title" class="form-label">Sosyal Medya Adı</label>
+        <input type="text" class="form-control" id="title" name="Name" value="@Model.Name" required />
+    </div>
+    <div class="mb-3">
+        <label for="title" class="form-label">Ikon</label>
+        <input type="text" class="form-control" id="title" name="Icon" value="@Model.Icon" required />
+    </div>
+    <div class="mb-3">
+        <label for="title" class="form-label">URL</label>
+        <input type="text" class="form-control" id="title" name="Url" value="@Model.Url" required />
+    </div>
+<div class="mb-3">
+    <label for="status" class="form-label">Durum</label>
+        <select class="form-control" id="status" name="Status" required>
+            @if (Model.Status)
+            {
+                <option value="true" selected>Aktif</option>
+                <option value="false">Pasif</option>
+            }
+            else
+            {
+                <option value="true">Aktif</option>
+                <option value="false" selected>Pasif</option>
+            }
+        </select>
+
+</div>
+    <button type="submit" class="btn btn-success">Kaydet</button>
+</form>
+
