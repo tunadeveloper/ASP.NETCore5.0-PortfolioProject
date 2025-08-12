@@ -64,3 +64,10 @@ Bu proje, **5 katmanlı mimari** prensiplerine göre yapılandırılmıştır. H
 
 ---
 
+<img width="1920" height="6208" alt="Image" src="https://github.com/user-attachments/assets/b58e4e18-a7cf-4aca-9846-af7e6a8f19f3" />
+<img width="1920" height="1053" alt="Image" src="https://github.com/user-attachments/assets/ea964c09-74fe-46bf-b171-5baee1142472" />
+<img width="1920" height="1301" alt="Image" src="https://github.com/user-attachments/assets/f62ea4b2-635c-426b-b9d9-a270df35d118" />
+<img width="1920" height="1016" alt="Image" src="https://github.com/user-attachments/assets/9cd07d0d-3f91-4318-b8e4-f4c39d67c396" />
+<img width="1920" height="1820" alt="Image" src="https://github.com/user-attachments/assets/1e66d2d9-3e8f-40ab-b68f-4e740ae2f54c" />
+<img width="1920" height="1674" alt="Image" src="https://github.com/user-attachments/assets/ec8bf066-88bb-4697-8056-104a9a5bc206" />
+<img width="1920" height="1408" alt="Image" src="https://github.com/user-attachments/assets/4c0ddb10-dab3-4ce5-b8ec-02c1c19c5500" />
