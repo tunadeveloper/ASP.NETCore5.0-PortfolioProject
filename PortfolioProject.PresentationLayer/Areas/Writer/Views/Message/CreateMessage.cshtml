@@ -1,26 +1,264 @@
-﻿@{
-    ViewData["Title"] = "CreateMessage";
+﻿@model PortfolioProject.EntityLayer.Concrete.WriterMessage
+@{
+    ViewData["Title"] = "Yeni Mesaj";
+    ViewData["Subtitle"] = "Yeni bir mesaj yazın ve gönderin";
     Layout = "~/Views/Shared/_WriterLayout.cshtml";
 }
-@model PortfolioProject.EntityLayer.Concrete.WriterMessage
 
-<div class="col-md-8 mx-auto">
-    <form asp-action="CreateMessage" method="post">
-        
-        <div class="mb-3">
-            <label for="ReceiverEmail" class="form-label">Alıcı Email</label>
-            <input type="email" class="form-control" id="ReceiverEmail" name="Receiver" placeholder="example@domain.com" required />
+<div class="row g-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title mb-0">
+                    <i class="fas fa-edit me-2"></i>
+                    Yeni Mesaj Yaz
+                </h5>
+            </div>
+            <div class="card-body">
+                <form asp-action="CreateMessage" method="post">
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label asp-for="Receiver" class="form-label fw-bold">
+                                <i class="fas fa-user me-2"></i>
+                                Alıcı Email
+                            </label>
+                            <input asp-for="Receiver" type="email" class="form-control" 
+                                   placeholder="alici@email.com" required />
+                            <span asp-validation-for="Receiver" class="text-danger small"></span>
+                        </div>
+                        
+                        <div class="col-md-6">
+                            <label asp-for="Subject" class="form-label fw-bold">
+                                <i class="fas fa-tag me-2"></i>
+                                Konu
+                            </label>
+                            <input asp-for="Subject" type="text" class="form-control" 
+                                   placeholder="Mesaj konusu" required />
+                            <span asp-validation-for="Subject" class="text-danger small"></span>
+                        </div>
+                        
+                        <div class="col-12">
+                            <label asp-for="Content" class="form-label fw-bold">
+                                <i class="fas fa-comment me-2"></i>
+                                Mesaj İçeriği
+                            </label>
+                            <textarea asp-for="Content" class="form-control" rows="8" 
+                                      placeholder="Mesajınızı buraya yazın..." required></textarea>
+                            <span asp-validation-for="Content" class="text-danger small"></span>
+                            <div class="form-text">
+                                <i class="fas fa-info-circle me-1"></i>
+                                Mesajınızı detaylı ve açık bir şekilde yazın.
+                            </div>
+                        </div>
+                        
+                        <div class="col-12">
+                            <div class="d-flex gap-2 justify-content-end">
+                                <a href="/Writer/Message/ReceiverMessage" class="btn btn-outline-secondary">
+                                    <i class="fas fa-arrow-left me-2"></i>
+                                    Geri Dön
+                                </a>
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="fas fa-paper-plane me-2"></i>
+                                    Mesajı Gönder
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
         </div>
-        <div class="mb-3">
-            <label for="Subject" class="form-label">Konu</label>
-            <input type="text" class="form-control" id="Subject" name="Subject" placeholder="Mesaj konusu" required />
+    </div>
+    
+    <!-- Message Tips -->
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h6 class="card-title mb-0">
+                    <i class="fas fa-lightbulb me-2"></i>
+                    Mesaj Yazma İpuçları
+                </h6>
+            </div>
+            <div class="card-body">
+                <div class="row g-3">
+                    <div class="col-md-4">
+                        <div class="tip-item text-center">
+                            <div class="tip-icon mb-2">
+                                <i class="fas fa-check-circle text-success fa-2x"></i>
+                            </div>
+                            <h6 class="tip-title">Net ve Açık Olun</h6>
+                            <p class="tip-text small text-muted">
+                                Mesajınızı anlaşılır ve net bir şekilde yazın.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-4">
+                        <div class="tip-item text-center">
+                            <div class="tip-icon mb-2">
+                                <i class="fas fa-clock text-warning fa-2x"></i>
+                            </div>
+                            <h6 class="tip-title">Zamanında Yanıtlayın</h6>
+                            <p class="tip-text small text-muted">
+                                Gelen mesajlara mümkün olduğunca hızlı yanıt verin.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-4">
+                        <div class="tip-item text-center">
+                            <div class="tip-icon mb-2">
+                                <i class="fas fa-heart text-danger fa-2x"></i>
+                            </div>
+                            <h6 class="tip-title">Profesyonel Olun</h6>
+                            <p class="tip-text small text-muted">
+                                Her zaman nazik ve profesyonel bir dil kullanın.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="mb-3">
-            <label for="Content" class="form-label">Mesaj İçeriği</label>
-            <textarea class="form-control" id="Content" name="Content" rows="6" placeholder="Mesajınızı yazınız..." required></textarea>
-        </div>
-       
-        <a href="/Writer/Message/SenderMessage" class="btn btn-danger">Geri Dön</a>
-        <button type="submit" class="btn btn-primary">Gönder</button>
-    </form>
+    </div>
 </div>
+
+<style>
+    .card {
+        border: none;
+        border-radius: 20px;
+        box-shadow: var(--shadow-md);
+        transition: all 0.3s ease;
+        overflow: hidden;
+    }
+    
+    .card:hover {
+        transform: translateY(-5px);
+        box-shadow: var(--shadow-lg);
+    }
+    
+    .card-header {
+        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        color: white;
+        border: none;
+        padding: 1.5rem;
+    }
+    
+    .card-title {
+        font-weight: 600;
+        margin: 0;
+    }
+    
+    .form-label {
+        color: var(--text-primary);
+        margin-bottom: 0.5rem;
+    }
+    
+    .form-control {
+        border: 2px solid var(--border-color);
+        border-radius: 15px;
+        padding: 1rem;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+    }
+    
+    .form-control:focus {
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 0.2rem rgba(99, 102, 241, 0.25);
+        transform: translateY(-2px);
+    }
+    
+    .form-control::placeholder {
+        color: var(--text-secondary);
+        opacity: 0.7;
+    }
+    
+    textarea.form-control {
+        resize: vertical;
+        min-height: 200px;
+    }
+    
+    .form-text {
+        color: var(--text-secondary);
+        font-size: 0.9rem;
+        margin-top: 0.5rem;
+    }
+    
+    .btn {
+        border-radius: 15px;
+        padding: 0.75rem 1.5rem;
+        font-weight: 500;
+        transition: all 0.3s ease;
+    }
+    
+    .btn:hover {
+        transform: translateY(-3px);
+        box-shadow: var(--shadow-lg);
+    }
+    
+    .btn-primary {
+        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        border: none;
+    }
+    
+    .btn-outline-secondary {
+        border: 2px solid var(--border-color);
+        color: var(--text-secondary);
+    }
+    
+    .btn-outline-secondary:hover {
+        background: var(--border-color);
+        border-color: var(--border-color);
+        color: var(--text-primary);
+    }
+    
+    .tip-item {
+        padding: 1rem;
+        border-radius: 15px;
+        transition: all 0.3s ease;
+    }
+    
+    .tip-item:hover {
+        transform: translateY(-5px);
+    }
+    
+    .tip-icon {
+        margin-bottom: 1rem;
+    }
+    
+    .tip-title {
+        color: var(--text-primary);
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+    }
+    
+    .tip-text {
+        line-height: 1.5;
+        margin: 0;
+    }
+    
+    .text-danger {
+        color: var(--danger-color) !important;
+    }
+    
+    .text-success {
+        color: var(--success-color) !important;
+    }
+    
+    .text-warning {
+        color: var(--warning-color) !important;
+    }
+    
+    @@media (max-width: 768px) {
+        .d-flex.justify-content-end {
+            flex-direction: column;
+        }
+        
+        .btn {
+            width: 100%;
+            margin-bottom: 0.5rem;
+        }
+        
+        .tip-item {
+            margin-bottom: 1rem;
+        }
+    }
+</style>

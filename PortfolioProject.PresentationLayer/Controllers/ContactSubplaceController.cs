@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using PortfolioProject.BusinessLayer.Abstract;
 using PortfolioProject.EntityLayer.Concrete;
 
 namespace PortfolioProject.PresentationLayer.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class ContactSubplaceController : Controller
     {
         private readonly IContactService _contactService;

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using PortfolioProject.EntityLayer.Concrete;
 using PortfolioProject.PresentationLayer.Areas.Writer.Models;
@@ -6,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace PortfolioProject.PresentationLayer.Areas.Writer.Controllers
 {
+    [AllowAnonymous]
     [Area("Writer")]
     public class RegisterController : Controller
     {

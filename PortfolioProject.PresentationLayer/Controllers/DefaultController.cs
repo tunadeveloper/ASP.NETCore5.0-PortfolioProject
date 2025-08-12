@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using PortfolioProject.BusinessLayer.Abstract;
 using PortfolioProject.EntityLayer.Concrete;
 using System;
 
 namespace PortfolioProject.PresentationLayer.Controllers
 {
+    [AllowAnonymous]
     public class DefaultController : Controller
     {
         private readonly IMessageService _messageService;

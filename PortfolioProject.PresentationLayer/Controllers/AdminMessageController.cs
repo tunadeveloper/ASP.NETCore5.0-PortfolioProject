@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using PortfolioProject.BusinessLayer.Abstract;
 using PortfolioProject.DataAccessLayer.Concrete;
 using PortfolioProject.EntityLayer.Concrete;
@@ -7,6 +8,7 @@ using System.Linq;
 
 namespace PortfolioProject.PresentationLayer.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class AdminMessageController : Controller
     {
         private readonly IWriterMessageService _writerMessageService;

@@ -1,95 +1,337 @@
 ﻿@model List<PortfolioProject.EntityLayer.Concrete.Message>
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Mesajlar";
     Layout = "~/Views/Shared/_adminLayout.cshtml";
     int count = 0;
 }
 
-<div class="card-header border-0">
-    <h3 class="mb-0">Mesajlar</h3>
-</div>
-
-<div class="table-responsive">
-    <table class="table align-items-center table-flush">
-        <thead class="thead-light">
-            <tr>
-                <th scope="col">#</th>
-                <th scope="col">Ad Soyad</th>
-                <th scope="col">E-Posta</th>
-                <th scope="col">Tarih</th>
-                <th scope="col">Sil</th>
-                <th scope="col">Mesajı Gör</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
-                count++;
-                <tr>
-                    <th>@count</th>
-                    <td>@item.Name</td>
-                    <td>@item.Mail</td>
-                    <td>@item.Date.ToString("HH:mm dd MMMM")</td>
-                    <td>
-                        <a href="/Contact/DeleteMessage/@item.MessageID" class="btn btn-danger btn-sm">Sil</a>
-                    </td>
-                    <td>
-                        <button type="button"
-                                class="btn btn-success btn-sm view-message-btn"
-                                data-id="@item.MessageID">
-                            Mesajı Gör
-                        </button>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
-</div>
-
-<!-- Modal -->
-<div class="modal fade" id="messageModal" tabindex="-1" role="dialog" aria-labelledby="messageModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Mesaj Detayı</h5>
-                <button type="button" class="close" data-dismiss="modal">
-                    <span>&times;</span>
-                </button>
+<!-- Page Header -->
+<div class="page-header mb-4">
+    <div class="container-fluid">
+        <div class="row align-items-center">
+            <div class="col">
+                <h1 class="h3 mb-0 text-white">
+                    <i class="fas fa-envelope mr-3"></i>Mesaj Yönetimi
+                </h1>
+                <p class="text-white-50 mb-0">Gelen mesajları görüntüleyin ve yönetin</p>
             </div>
-            <div class="modal-body">
-                <p><strong>Ad Soyad:</strong> <span id="modalName"></span></p>
-                <p><strong>E-Posta:</strong> <span id="modalMail"></span></p>
-                <p><strong>Tarih:</strong> <span id="modalDate"></span></p>
-                <p><strong>Mesaj:</strong></p>
-                <p id="modalContent" class="border p-2 bg-light rounded"></p>
+            <div class="col-auto">
+                <span class="badge badge-light badge-pill px-3 py-2" style="font-size: 16px; font-weight: 600;">
+                    <i class="fas fa-inbox mr-2"></i>@Model.Count Mesaj
+                </span>
             </div>
         </div>
     </div>
 </div>
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="/admin/assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Stats Cards -->
+<div class="row mb-4">
+    <div class="col-xl-3 col-md-6">
+        <div class="stats-card">
+            <i class="fas fa-envelope fa-2x mb-3" style="opacity: 0.8;"></i>
+            <h3>@Model.Count</h3>
+            <p>Toplam Mesaj</p>
+        </div>
+    </div>
+    <div class="col-xl-3 col-md-6">
+        <div class="stats-card" style="background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);">
+            <i class="fas fa-check-circle fa-2x mb-3" style="opacity: 0.8;"></i>
+            <h3>@Model.Count</h3>
+            <p>Okunmamış</p>
+        </div>
+    </div>
+    <div class="col-xl-3 col-md-6">
+        <div class="stats-card" style="background: linear-gradient(135deg, #ed8936 0%, #dd6b20 100%);">
+            <i class="fas fa-calendar fa-2x mb-3" style="opacity: 0.8;"></i>
+            <h3>@Model.Count</h3>
+            <p>Bugün</p>
+        </div>
+    </div>
+    <div class="col-xl-3 col-md-6">
+        <div class="stats-card" style="background: linear-gradient(135deg, #4299e1 0%, #3182ce 100%);">
+            <i class="fas fa-users fa-2x mb-3" style="opacity: 0.8;"></i>
+            <h3>@Model.Select(x => x.Mail).Distinct().Count()</h3>
+            <p>Farklı Gönderen</p>
+        </div>
+    </div>
+</div>
 
-    <script>
-        $(document).ready(function () {
-            $('.view-message-btn').on('click', function () {
-                const id = $(this).data('id');
-
-                $.ajax({
-                    url: '/Contact/GetMessageById/' + id,
-                    type: 'GET',
-                    success: function (data) {
-                        $('#modalName').text(data.name);
-                        $('#modalMail').text(data.mail);
-                        $('#modalDate').text(data.date);
-                        $('#modalContent').text(data.content);
-                        $('#messageModal').modal('show');
-                    },
-                    error: function () {
-                        alert("Mesaj detayı alınamadı.");
+<!-- Main Content Card -->
+<div class="card">
+    <div class="card-header" style="background: linear-gradient(135deg, #ed8936 0%, #dd6b20 100%); border: none; border-radius: 12px 12px 0 0;">
+        <div class="row align-items-center">
+            <div class="col">
+                <h3 class="mb-0 text-white">
+                    <i class="fas fa-list mr-2"></i>Mesajlar Listesi
+                </h3>
+            </div>
+            <div class="col-auto">
+                <div class="d-flex align-items-center">
+                    <span class="badge badge-light badge-pill px-3 py-2 mr-2" style="font-size: 14px; font-weight: 600;">
+                        @Model.Count Mesaj
+                    </span>
+                    <button class="btn btn-outline-light btn-sm" onclick="refreshMessages()" style="border-radius: 8px;">
+                        <i class="fas fa-sync-alt mr-1"></i>Yenile
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-hover mb-0">
+                <thead>
+                    <tr>
+                        <th style="padding: 20px; font-weight: 600; color: white; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                            <i class="fas fa-hashtag mr-2"></i>#
+                        </th>
+                        <th style="padding: 20px; font-weight: 600; color: white; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                            <i class="fas fa-user mr-2"></i>Gönderen
+                        </th>
+                        <th style="padding: 20px; font-weight: 600; color: white; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                            <i class="fas fa-envelope mr-2"></i>E-Posta
+                        </th>
+                        <th style="padding: 20px; font-weight: 600; color: white; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                            <i class="fas fa-calendar mr-2"></i>Tarih
+                        </th>
+                        <th style="padding: 20px; font-weight: 600; color: white; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                            <i class="fas fa-cogs mr-2"></i>İşlemler
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        count++;
+                        <tr style="transition: all 0.3s ease;">
+                            <td style="padding: 20px;">
+                                <span class="badge badge-primary badge-pill px-3 py-2" style="font-size: 14px; font-weight: 600; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                                    @count
+                                </span>
+                            </td>
+                            <td style="padding: 20px;">
+                                <div class="d-flex align-items-center">
+                                    <div class="avatar mr-3" style="width: 40px; height: 40px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: 600;">
+                                        @item.Name.Substring(0, 1).ToUpper()
+                                    </div>
+                                    <div>
+                                        <h6 class="mb-0 font-weight-bold" style="color: #2d3748;">@item.Name</h6>
+                                        <small class="text-muted">Mesaj ID: @item.MessageID</small>
+                                    </div>
+                                </div>
+                            </td>
+                            <td style="padding: 20px;">
+                                <div class="d-flex align-items-center">
+                                    <a href="mailto:@item.Mail" class="text-primary" style="text-decoration: none; font-weight: 500;">
+                                        <i class="fas fa-envelope mr-2"></i>@item.Mail
+                                    </a>
+                                </div>
+                            </td>
+                            <td style="padding: 20px;">
+                                <div class="d-flex align-items-center">
+                                    <div>
+                                        <span class="badge badge-info badge-pill px-3 py-2" style="font-size: 12px; font-weight: 500; background: linear-gradient(135deg, #4299e1 0%, #3182ce 100%);">
+                                            @item.Date.ToString("dd/MM/yyyy")
+                                        </span>
+                                        <br>
+                                        <small class="text-muted">@item.Date.ToString("HH:mm")</small>
+                                    </div>
+                                </div>
+                            </td>
+                            <td style="padding: 20px;">
+                                <div class="btn-group" role="group">
+                                    <button type="button"
+                                            class="btn btn-success btn-sm mr-2 view-message-btn"
+                                            data-id="@item.MessageID"
+                                            style="border-radius: 8px; padding: 8px 16px; font-weight: 500; transition: all 0.3s ease;">
+                                        <i class="fas fa-eye mr-1"></i>Görüntüle
+                                    </button>
+                                    <a href="/Contact/DeleteMessage/@item.MessageID" 
+                                       class="btn btn-danger btn-sm" 
+                                       style="border-radius: 8px; padding: 8px 16px; font-weight: 500; transition: all 0.3s ease;"
+                                       onclick="return confirm('Bu mesajı silmek istediğinizden emin misiniz?')">
+                                        <i class="fas fa-trash mr-1"></i>Sil
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
                     }
-                });
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- Empty State -->
+@if (!Model.Any())
+{
+    <div class="text-center py-5">
+        <div class="mb-4">
+            <i class="fas fa-envelope fa-4x text-muted"></i>
+        </div>
+        <h4 class="text-muted mb-3">Henüz mesaj bulunmuyor</h4>
+        <p class="text-muted mb-4">Gelen mesajlar burada görüntülenecek</p>
+    </div>
+}
+
+<!-- Enhanced Message Modal -->
+<div class="modal fade" id="messageModal" tabindex="-1" role="dialog" aria-labelledby="messageModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content" style="border-radius: 16px; border: none;">
+            <div class="modal-header" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border: none; border-radius: 16px 16px 0 0;">
+                <h5 class="modal-title text-white" id="messageModalLabel">
+                    <i class="fas fa-envelope mr-2"></i>Mesaj Detayı
+                </h5>
+                <button type="button" class="close text-white" data-dismiss="modal">
+                    <span>&times;</span>
+                </button>
+            </div>
+            <div class="modal-body p-4">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="message-info-card mb-3" style="background: #f8fafc; border-radius: 12px; padding: 20px;">
+                            <h6 class="text-muted mb-3">
+                                <i class="fas fa-user mr-2"></i>Gönderen Bilgileri
+                            </h6>
+                            <div class="d-flex align-items-center mb-3">
+                                <div class="avatar mr-3" style="width: 50px; height: 50px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: 600; font-size: 18px;">
+                                    <span id="modalAvatar"></span>
+                                </div>
+                                <div>
+                                    <h6 class="mb-1 font-weight-bold" id="modalName"></h6>
+                                    <small class="text-muted" id="modalMail"></small>
+                                </div>
+                            </div>
+                            <div class="message-meta">
+                                <p class="mb-2">
+                                    <i class="fas fa-calendar mr-2 text-primary"></i>
+                                    <strong>Tarih:</strong> <span id="modalDate"></span>
+                                </p>
+                                <p class="mb-0">
+                                    <i class="fas fa-clock mr-2 text-info"></i>
+                                    <strong>Saat:</strong> <span id="modalTime"></span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="message-content-card" style="background: #f8fafc; border-radius: 12px; padding: 20px;">
+                            <h6 class="text-muted mb-3">
+                                <i class="fas fa-comment mr-2"></i>Mesaj İçeriği
+                            </h6>
+                            <div class="message-text" style="background: white; border-radius: 8px; padding: 15px; border-left: 4px solid #667eea;">
+                                <p id="modalContent" class="mb-0" style="line-height: 1.6; color: #2d3748;"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer border-0 justify-content-center">
+                <button type="button" class="btn btn-secondary btn-lg px-4 py-2" data-dismiss="modal" style="border-radius: 12px; font-weight: 600;">
+                    <i class="fas fa-times mr-2"></i>Kapat
+                </button>
+                <a href="#" id="modalReplyBtn" class="btn btn-primary btn-lg px-4 py-2" style="border-radius: 12px; font-weight: 600; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border: none;">
+                    <i class="fas fa-reply mr-2"></i>Yanıtla
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .table tbody tr:hover {
+        background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%);
+        transform: scale(1.01);
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+    
+    .btn-group .btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+    
+    .badge {
+        transition: all 0.3s ease;
+    }
+    
+    .badge:hover {
+        transform: scale(1.05);
+    }
+    
+    .page-header {
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .page-header::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+        z-index: -1;
+    }
+    
+    .avatar {
+        transition: all 0.3s ease;
+    }
+    
+    .avatar:hover {
+        transform: scale(1.1);
+        box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+    }
+    
+    .message-info-card,
+    .message-content-card {
+        transition: all 0.3s ease;
+    }
+    
+    .message-info-card:hover,
+    .message-content-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+</style>
+
+<script>
+    $(document).ready(function () {
+        $('.view-message-btn').on('click', function () {
+            const id = $(this).data('id');
+            
+            // Loading state
+            $(this).html('<i class="fas fa-spinner fa-spin mr-1"></i>Yükleniyor...');
+            $(this).prop('disabled', true);
+
+            $.ajax({
+                url: '/Contact/GetMessageById/' + id,
+                type: 'GET',
+                success: function (data) {
+                    $('#modalName').text(data.name);
+                    $('#modalMail').text(data.mail);
+                    $('#modalDate').text(new Date(data.date).toLocaleDateString('tr-TR'));
+                    $('#modalTime').text(new Date(data.date).toLocaleTimeString('tr-TR'));
+                    $('#modalContent').text(data.content);
+                    $('#modalAvatar').text(data.name.charAt(0).toUpperCase());
+                    $('#modalReplyBtn').attr('href', 'mailto:' + data.mail + '?subject=Re: Portfolio Mesajı');
+                    $('#messageModal').modal('show');
+                },
+                error: function () {
+                    alert("Mesaj detayı alınamadı.");
+                },
+                complete: function () {
+                    // Reset button state
+                    $('.view-message-btn').html('<i class="fas fa-eye mr-1"></i>Görüntüle');
+                    $('.view-message-btn').prop('disabled', false);
+                }
             });
         });
-    </script>
+    });
+    
+    function refreshMessages() {
+        location.reload();
+    }
+</script>
 

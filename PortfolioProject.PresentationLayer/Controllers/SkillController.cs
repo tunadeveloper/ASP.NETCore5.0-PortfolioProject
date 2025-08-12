@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using PortfolioProject.BusinessLayer.Abstract;
 using PortfolioProject.BusinessLayer.Concrete;
 using PortfolioProject.EntityLayer.Concrete;
 
 namespace PortfolioProject.PresentationLayer.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class SkillController : Controller
     {
         private readonly ISkillService _skillService;

@@ -1,107 +1,254 @@
 ﻿
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Dashboard";
+    ViewData["Subtitle"] = "Portfolio Writer Panel - Genel Bakış";
     Layout = "~/Views/Shared/_WriterLayout.cshtml";
 }
 
-<div class="row">
-    <div class="col-md-12 grid-margin">
-        <div class="row">
-            <div class="col-12 col-xl-8 mb-4 mb-xl-0">
-                <h3 class="font-weight-bold">Hoşgeldin @ViewBag.v</h3>
-                <h6 class="font-weight-normal mb-0">Dashboard | Yeni duyurulara <span class="text-primary">Göz at!</span></h6>
-            </div>
-            <div class="col-12 col-xl-4">
-                <div class="justify-content-end d-flex">
-                    <div class="dropdown flex-md-grow-1 flex-xl-grow-0">
-                        <button class="btn btn-sm btn-light bg-white" type="button" id="dropdownMenuDate2"  aria-haspopup="true" aria-expanded="true">
-                            <i class="mdi mdi-calendar"></i> @DateTime.Now.ToString("dd MMMM")
-                        </button>
-                    </div>
+<div class="row g-4">
+    <!-- Welcome Section -->
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body text-center">
+                <div class="welcome-icon mb-3">
+                    <i class="fas fa-sun text-warning"></i>
+                </div>
+                <h2 class="card-title text-primary mb-2">Hoşgeldin @ViewBag.v!</h2>
+                <p class="text-muted mb-0">Bugün harika bir gün! Portfolio'nuzu geliştirmeye devam edin.</p>
+                <div class="current-date mt-3">
+                    <span class="badge bg-primary fs-6">
+                        <i class="fas fa-calendar me-2"></i>
+                        @DateTime.Now.ToString("dd MMMM yyyy, dddd")
+                    </span>
                 </div>
             </div>
         </div>
     </div>
-</div>
-<div class="row">
-    <div class="col-md-6 grid-margin stretch-card">
-        <div class="card tale-bg">
-            <div class="card-people mt-auto">
-                <img src="/skydash/images/dashboard/people.svg" alt="people">
-                <div class="weather-info">
-                    <div class="d-flex">
-                        <div>
-                            <h2 class="mb-0 font-weight-normal"><i class="icon-sun mr-2"></i>@ViewBag.v5<sup>C</sup></h2>
-                        </div>
-                        <div class="ml-2">
-                            <h4 class="location font-weight-normal">Erzurum</h4>
-                            <h6 class="font-weight-normal">Türkiye</h6>
-                        </div>
+
+    <!-- Stats Cards -->
+    <div class="col-lg-3 col-md-6">
+        <div class="stats-card">
+            <div class="stats-icon mb-3">
+                <i class="fas fa-inbox fa-2x"></i>
+            </div>
+            <h3>@ViewBag.v1</h3>
+            <p class="mb-0">Gelen Mesaj</p>
+        </div>
+    </div>
+
+    <div class="col-lg-3 col-md-6">
+        <div class="stats-card">
+            <div class="stats-icon mb-3">
+                <i class="fas fa-bell fa-2x"></i>
+            </div>
+            <h3>@ViewBag.v2</h3>
+            <p class="mb-0">Duyurular</p>
+        </div>
+    </div>
+
+    <div class="col-lg-3 col-md-6">
+        <div class="stats-card">
+            <div class="stats-icon mb-3">
+                <i class="fas fa-users fa-2x"></i>
+            </div>
+            <h3>@ViewBag.v3</h3>
+            <p class="mb-0">Kullanıcılar</p>
+        </div>
+    </div>
+
+    <div class="col-lg-3 col-md-6">
+        <div class="stats-card">
+            <div class="stats-icon mb-3">
+                <i class="fas fa-star fa-2x"></i>
+            </div>
+            <h3>@ViewBag.v4</h3>
+            <p class="mb-0">Yetenekler</p>
+        </div>
+    </div>
+
+    <!-- Weather and Quick Actions -->
+    <div class="col-lg-6">
+        <div class="card h-100">
+            <div class="card-header">
+                <h5 class="card-title mb-0">
+                    <i class="fas fa-cloud-sun me-2"></i>
+                    Hava Durumu
+                </h5>
+            </div>
+            <div class="card-body text-center">
+                <div class="weather-display">
+                    <div class="weather-icon mb-3">
+                        <i class="fas fa-sun fa-4x text-warning"></i>
                     </div>
+                    <h2 class="temperature mb-2">
+                        @ViewBag.v5°C
+                    </h2>
+                    <h5 class="location mb-1">Erzurum, Türkiye</h5>
+                    <p class="text-muted mb-0">Güneşli ve açık</p>
                 </div>
             </div>
         </div>
     </div>
-    <div class="col-md-6 grid-margin transparent">
-        <div class="row">
-            <div class="col-md-6 mb-4 stretch-card transparent">
-                <div class="card card-tale">
-                    <div class="card-body">
-                        <p class="mb-4">Gelen Mesaj</p>
-                        <p class="fs-30 mb-2">@ViewBag.v1</p>
-                    </div>
-                </div>
+
+    <div class="col-lg-6">
+        <div class="card h-100">
+            <div class="card-header">
+                <h5 class="card-title mb-0">
+                    <i class="fas fa-bolt me-2"></i>
+                    Hızlı Erişim
+                </h5>
             </div>
-            <div class="col-md-6 mb-4 stretch-card transparent">
-                <div class="card card-dark-blue">
-                    <div class="card-body">
-                        <p class="mb-4">Duyurular</p>
-                        <p class="fs-30 mb-2">@ViewBag.v2</p>
-                    </div>
+            <div class="card-body">
+                <div class="d-grid gap-3">
+                    <a href="/Announcement/Index" class="btn btn-outline-primary btn-lg">
+                        <i class="fas fa-bullhorn me-2"></i>
+                        Duyuruları Görüntüle
+                    </a>
+                    <a href="/Writer/Message/ReceiverMessage" class="btn btn-outline-success btn-lg">
+                        <i class="fas fa-envelope me-2"></i>
+                        Mesajlarını Aç
+                    </a>
+                    <a href="/Writer/Profile/Index" class="btn btn-outline-warning btn-lg">
+                        <i class="fas fa-user-edit me-2"></i>
+                        Profilini Düzenle
+                    </a>
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-6 mb-4 mb-lg-0 stretch-card transparent">
-                <div class="card card-light-blue">
-                    <div class="card-body">
-                        <p class="mb-4">Kullanıcılar</p>
-                        <p class="fs-30 mb-2">@ViewBag.v3</p>
-                    </div>
-                </div>
+    </div>
+
+    <!-- Motivation Quote -->
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title mb-0">
+                    <i class="fas fa-quote-left me-2"></i>
+                    Günün Motivasyon Sözü
+                </h5>
             </div>
-            <div class="col-md-6 stretch-card transparent">
-                <div class="card card-light-danger">
-                    <div class="card-body">
-                        <p class="mb-4">Yetenekler</p>
-                        <p class="fs-30 mb-2">@ViewBag.v4</p>
-                    </div>
-                </div>
+            <div class="card-body">
+                <blockquote class="motivation-quote">
+                    <p class="fs-5 text-center fst-italic">
+                        "Bir fikrin hayata geçmesi için yalnızca bilgi yetmez; sabır, tekrar ve istikrar gerekir. 
+                        Başladığında hiçbir şey tam olmayabilir, herkes anlamayabilir, hatta sen bile tereddüt edebilirsin. 
+                        Ama her gün küçük bir adım atarsan, zamanla karmaşık gibi görünen her şey çözülür. 
+                        Gerçek başarı; vazgeçmeyenlerin, kendi yolunu sabırla inşa edenlerin ödülüdür."
+                    </p>
+                    <footer class="text-end text-muted">
+                        <cite>- Portfolio Writer</cite>
+                    </footer>
+                </blockquote>
             </div>
         </div>
     </div>
 </div>
 
-<div class="row">
-    <div class="col-md-6 grid-margin stretch-card">
-        <div class="card">
-            <div class="card-body">
-                <p class="card-title">Motivasyon Sözü</p>
-                <p class="font-weight-500">Bir fikrin hayata geçmesi için yalnızca bilgi yetmez; sabır, tekrar ve istikrar gerekir. Başladığında hiçbir şey tam olmayabilir, herkes anlamayabilir, hatta sen bile tereddüt edebilirsin. Ama her gün küçük bir adım atarsan, zamanla karmaşık gibi görünen her şey çözülür. Gerçek başarı; vazgeçmeyenlerin, kendi yolunu sabırla inşa edenlerin ödülüdür.</p>
-           
-            </div>
-        </div>
-    </div>
-    <div class="col-md-6 grid-margin stretch-card">
-        <div class="card bg-white">
-            <div class="card-body">
-                <h4 class="card-title">Kısayollar</h4>
-                <div class="d-flex flex-column gap-2">
-                    <a href="/Announcement/Index" class="btn btn-outline-primary btn-sm mb-2">📢 Duyuruları Görüntüle</a>
-                    <a href="/Writer/Message" class="btn btn-outline-success btn-sm mb-2">✉️ Mesajlarını Aç</a>
-                    <a href="/Writer/Profile" class="btn btn-outline-warning btn-sm">👤 Profilini Düzenle</a>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+<style>
+    .welcome-icon {
+        font-size: 3rem;
+        color: var(--warning-color);
+    }
+    
+    .current-date .badge {
+        font-weight: 500;
+        padding: 0.75rem 1.5rem;
+    }
+    
+    .stats-card {
+        background: linear-gradient(135deg, var(--success-color), var(--primary-color));
+        color: white;
+        border-radius: 20px;
+        padding: 2rem;
+        text-align: center;
+        box-shadow: var(--shadow-lg);
+        transition: all 0.3s ease;
+        height: 100%;
+    }
+    
+    .stats-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    }
+    
+    .stats-icon {
+        opacity: 0.8;
+    }
+    
+    .stats-card h3 {
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+    }
+    
+    .weather-display {
+        padding: 1rem 0;
+    }
+    
+    .weather-icon {
+        color: var(--warning-color);
+    }
+    
+    .temperature {
+        font-size: 3rem;
+        font-weight: 700;
+        color: var(--primary-color);
+    }
+    
+    .location {
+        color: var(--text-primary);
+        font-weight: 600;
+    }
+    
+    .motivation-quote {
+        border-left: 4px solid var(--primary-color);
+        padding-left: 2rem;
+        margin: 0;
+    }
+    
+    .motivation-quote p {
+        line-height: 1.8;
+        color: var(--text-primary);
+    }
+    
+    .motivation-quote footer {
+        margin-top: 1.5rem;
+        font-size: 1.1rem;
+    }
+    
+    .btn-lg {
+        padding: 1rem 1.5rem;
+        font-weight: 500;
+        border-radius: 15px;
+        transition: all 0.3s ease;
+    }
+    
+    .btn-lg:hover {
+        transform: translateY(-3px);
+        box-shadow: var(--shadow-lg);
+    }
+    
+    .card {
+        border: none;
+        border-radius: 20px;
+        box-shadow: var(--shadow-md);
+        transition: all 0.3s ease;
+        overflow: hidden;
+    }
+    
+    .card:hover {
+        transform: translateY(-5px);
+        box-shadow: var(--shadow-lg);
+    }
+    
+    .card-header {
+        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        color: white;
+        border: none;
+        padding: 1.5rem;
+    }
+    
+    .card-title {
+        font-weight: 600;
+        margin: 0;
+    }
+</style>

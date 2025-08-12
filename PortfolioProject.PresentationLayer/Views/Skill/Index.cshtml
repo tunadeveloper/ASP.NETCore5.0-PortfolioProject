@@ -1,6 +1,6 @@
 ﻿@model List<PortfolioProject.EntityLayer.Concrete.Skill>
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Yetenekler";
     Layout = "~/Views/Shared/_adminLayout.cshtml";
     Random random = new Random();
     int count = 0;
@@ -28,46 +28,287 @@
     }
 }
 
-<div class="card-header border-0">
-    <h3 class="mb-0">Yetenek Listesi</h3>
+<!-- Page Header -->
+<div class="page-header mb-4">
+    <div class="container-fluid">
+        <div class="row align-items-center">
+            <div class="col">
+                <h1 class="h3 mb-0 text-white">
+                    <i class="fas fa-hat-3 mr-3"></i>Yetenek Yönetimi
+                </h1>
+                <p class="text-white-50 mb-0">Teknik yeteneklerinizi yönetin ve düzenleyin</p>
+            </div>
+            <div class="col-auto">
+                <a href="/Skill/CreateSkill/" class="btn btn-light btn-lg px-4 py-2" style="border-radius: 12px; font-weight: 600;">
+                    <i class="fas fa-plus mr-2"></i>Yeni Yetenek Ekle
+                </a>
+            </div>
+        </div>
+    </div>
 </div>
 
-<div class="table-responsive">
-    <table class="table align-items-center table-flush">
-        <thead class="thead-light">
-            <tr>
-                <th scope="col" class="sort" data-sort="name">#</th>
-                <th scope="col" class="sort" data-sort="budget">Başlık</th>
-                <th scope="col" class="sort" data-sort="status">Oran</th>
-                <th scope="col">Sil</th>
-                <th scope="col" class="sort" data-sort="completion">Düzenle</th>
-                <th scope="col"></th>
-            </tr>
-        </thead>
-        <tbody class="list">
+<!-- Stats Cards -->
+<div class="row mb-4">
+    <div class="col-xl-3 col-md-6">
+        <div class="stats-card">
+            <i class="fas fa-hat-3 fa-2x mb-3" style="opacity: 0.8;"></i>
+            <h3>@Model.Count</h3>
+            <p>Toplam Yetenek</p>
+        </div>
+    </div>
+    <div class="col-xl-3 col-md-6">
+        <div class="stats-card" style="background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);">
+            <i class="fas fa-star fa-2x mb-3" style="opacity: 0.8;"></i>
+            <h3>@Model.Average(x => x.Value).ToString("F1")</h3>
+            <p>Ortalama Seviye</p>
+        </div>
+    </div>
+    <div class="col-xl-3 col-md-6">
+        <div class="stats-card" style="background: linear-gradient(135deg, #ed8936 0%, #dd6b20 100%);">
+            <i class="fas fa-trophy fa-2x mb-3" style="opacity: 0.8;"></i>
+            <h3>@Model.Max(x => x.Value)</h3>
+            <p>En Yüksek Seviye</p>
+        </div>
+    </div>
+    <div class="col-xl-3 col-md-6">
+        <div class="stats-card" style="background: linear-gradient(135deg, #4299e1 0%, #3182ce 100%);">
+            <i class="fas fa-chart-line fa-2x mb-3" style="opacity: 0.8;"></i>
+            <h3>@Model.Sum(x => x.Value)</h3>
+            <p>Toplam Puan</p>
+        </div>
+    </div>
+</div>
 
-            @foreach(var item in Model){
-                var progressBarClass = GetRandomColor(item.Value);
-                count++;
-            <tr>
-               <th>@count</th>
-                <td class="budget">@item.Title</td>
-                <td>
-                    <div class="d-flex align-items-center">
-                        <span class="completion mr-2">@item.Value%</span>
-                        <div>
-                            <div class="progress">
-                                <div class="progress-bar @progressBarClass" role="progressbar" aria-valuenow="@item.Value" aria-valuemin="0" aria-valuemax="100" style="width: @item.Value%;"></div>
+<!-- Main Content Card -->
+<div class="card">
+    <div class="card-header" style="background: linear-gradient(135deg, #ed8936 0%, #dd6b20 100%); border: none; border-radius: 12px 12px 0 0;">
+        <div class="row align-items-center">
+            <div class="col">
+                <h3 class="mb-0 text-white">
+                    <i class="fas fa-list mr-2"></i>Yetenekler Listesi
+                </h3>
+            </div>
+            <div class="col-auto">
+                <span class="badge badge-light badge-pill px-3 py-2" style="font-size: 14px; font-weight: 600;">
+                    @Model.Count Yetenek
+                </span>
+            </div>
+        </div>
+    </div>
+    
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-hover mb-0">
+                <thead>
+                    <tr>
+                        <th style="padding: 20px; font-weight: 600; color: white; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                            <i class="fas fa-hashtag mr-2"></i>#
+                        </th>
+                        <th style="padding: 20px; font-weight: 600; color: white; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                            <i class="fas fa-hat-3 mr-2"></i>Yetenek Adı
+                        </th>
+                        <th style="padding: 20px; font-weight: 600; color: white; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                            <i class="fas fa-chart-bar mr-2"></i>Seviye
+                        </th>
+                        <th style="padding: 20px; font-weight: 600; color: white; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                            <i class="fas fa-cogs mr-2"></i>İşlemler
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach(var item in Model){
+                        var progressBarClass = GetRandomColor(item.Value);
+                        count++;
+                        <tr style="transition: all 0.3s ease;">
+                            <td style="padding: 20px;">
+                                <span class="badge badge-primary badge-pill px-3 py-2" style="font-size: 14px; font-weight: 600; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                                    @count
+                                </span>
+                            </td>
+                            <td style="padding: 20px;">
+                                <div class="d-flex align-items-center">
+                                    <div>
+                                        <h6 class="mb-0 font-weight-bold" style="color: #2d3748;">@item.Title</h6>
+                                        <small class="text-muted">Yetenek ID: @item.SkillID</small>
+                                    </div>
+                                </div>
+                            </td>
+                            <td style="padding: 20px;">
+                                <div class="d-flex align-items-center">
+                                    <div class="flex-grow-1">
+                                        <div class="d-flex justify-content-between align-items-center mb-2">
+                                            <span class="font-weight-bold" style="color: #2d3748; font-size: 16px;">@item.Value%</span>
+                                            <span class="badge badge-pill px-2 py-1" style="font-size: 11px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">
+                                                @GetSkillLevel(item.Value)
+                                            </span>
+                                        </div>
+                                        <div class="progress" style="height: 12px; border-radius: 6px; background: #e2e8f0;">
+                                            <div class="progress-bar @progressBarClass" 
+                                                 role="progressbar" 
+                                                 aria-valuenow="@item.Value" 
+                                                 aria-valuemin="0" 
+                                                 aria-valuemax="100" 
+                                                 style="width: @item.Value%; border-radius: 6px; transition: all 0.3s ease; box-shadow: 0 2px 4px rgba(0,0,0,0.1);"></div>
+                                        </div>
+                                        <small class="text-muted mt-1 d-block">Seviye: @GetSkillLevel(item.Value)</small>
+                                    </div>
+                                </div>
+                            </td>
+                            <td style="padding: 20px;">
+                                <div class="btn-group" role="group">
+                                    <a href="/Skill/UpdateSkill/@item.SkillID" 
+                                       class="btn btn-success btn-sm mr-2" 
+                                       style="border-radius: 8px; padding: 8px 16px; font-weight: 500; transition: all 0.3s ease;">
+                                        <i class="fas fa-edit mr-1"></i>Düzenle
+                                    </a>
+                                    <a href="/Skill/DeleteSkill/@item.SkillID" 
+                                       class="btn btn-danger btn-sm" 
+                                       style="border-radius: 8px; padding: 8px 16px; font-weight: 500; transition: all 0.3s ease;"
+                                       onclick="return confirm('Bu yeteneği silmek istediğinizden emin misiniz?')">
+                                        <i class="fas fa-trash mr-1"></i>Sil
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- Skills Overview -->
+<div class="row mt-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header" style="background: linear-gradient(135deg, #ed8936 0%, #dd6b20 100%); border: none; border-radius: 12px 12px 0 0;">
+                <h5 class="mb-0 text-white">
+                    <i class="fas fa-chart-pie mr-2"></i>Yetenek Dağılımı
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h6 class="text-muted mb-3">Seviye Kategorileri</h6>
+                        <div class="skill-categories">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <span class="badge badge-danger px-3 py-2">Başlangıç (0-20%)</span>
+                                <span class="font-weight-bold">@Model.Count(x => x.Value <= 20)</span>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <span class="badge badge-warning px-3 py-2">Gelişmekte (21-40%)</span>
+                                <span class="font-weight-bold">@Model.Count(x => x.Value > 20 && x.Value <= 40)</span>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <span class="badge badge-info px-3 py-2">Orta (41-60%)</span>
+                                <span class="font-weight-bold">@Model.Count(x => x.Value > 40 && x.Value <= 60)</span>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <span class="badge badge-primary px-3 py-2">İyi (61-80%)</span>
+                                <span class="font-weight-bold">@Model.Count(x => x.Value > 60 && x.Value <= 80)</span>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <span class="badge badge-success px-3 py-2">Uzman (81-100%)</span>
+                                <span class="font-weight-bold">@Model.Count(x => x.Value > 80)</span>
                             </div>
                         </div>
                     </div>
-                </td>
-                    <td><a href="/Skill/DeleteSkill/@item.SkillID" class="btn btn-danger btn-sm">Sil</a></td>
-                    <td><a href="/Skill/UpdateSkill/@item.SkillID" class="btn btn-success btn-sm">Güncelle</a></td>
-            </tr>
-
-            }
-        </tbody>
-    </table>
-    <a href="/Skill/CreateSkill/" class="btn btn-info">Yetenek Ekle</a>
+                    <div class="col-md-6">
+                        <h6 class="text-muted mb-3">En Yüksek Yetenekler</h6>
+                        <div class="top-skills">
+                            @foreach(var skill in Model.OrderByDescending(x => x.Value).Take(3))
+                            {
+                                <div class="d-flex justify-content-between align-items-center mb-2 p-2" style="background: #f8fafc; border-radius: 8px;">
+                                    <span class="font-weight-bold">@skill.Title</span>
+                                    <span class="badge badge-primary px-3 py-2">@skill.Value%</span>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
+<!-- Empty State -->
+@if (!Model.Any())
+{
+    <div class="text-center py-5">
+        <div class="mb-4">
+            <i class="fas fa-hat-3 fa-4x text-muted"></i>
+        </div>
+        <h4 class="text-muted mb-3">Henüz yetenek bulunmuyor</h4>
+        <p class="text-muted mb-4">İlk yeteneğinizi ekleyerek portföyünüzü oluşturmaya başlayın</p>
+        <a href="/Skill/CreateSkill/" class="btn btn-primary btn-lg px-4 py-2" style="border-radius: 12px; font-weight: 600;">
+            <i class="fas fa-plus mr-2"></i>İlk Yeteneği Ekle
+        </a>
+    </div>
+}
+
+@functions {
+    string GetSkillLevel(int value)
+    {
+        if (value <= 20) return "Başlangıç";
+        if (value <= 40) return "Gelişmekte";
+        if (value <= 60) return "Orta";
+        if (value <= 80) return "İyi";
+        return "Uzman";
+    }
+}
+
+<style>
+    .table tbody tr:hover {
+        background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%);
+        transform: scale(1.01);
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+    
+    .btn-group .btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+    
+    .badge {
+        transition: all 0.3s ease;
+    }
+    
+    .badge:hover {
+        transform: scale(1.05);
+    }
+    
+    .page-header {
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .page-header::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+        z-index: -1;
+    }
+    
+    .progress-bar {
+        transition: all 0.3s ease;
+    }
+    
+    .progress-bar:hover {
+        transform: scaleY(1.1);
+        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+    
+    .skill-categories .badge,
+    .top-skills .badge {
+        transition: all 0.3s ease;
+    }
+    
+    .skill-categories .badge:hover,
+    .top-skills .badge:hover {
+        transform: scale(1.05);
+    }
+</style>

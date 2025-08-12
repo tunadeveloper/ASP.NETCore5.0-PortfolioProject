@@ -1,4 +1,5 @@
 ﻿using FluentValidation.Results;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PortfolioProject.BusinessLayer.Abstract;
 using PortfolioProject.BusinessLayer.ValidationRules;
@@ -6,6 +7,7 @@ using PortfolioProject.EntityLayer.Concrete;
 
 namespace PortfolioProject.PresentationLayer.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class PortfolioController : Controller
     {
         private readonly IPortfolioService _portfolioService;

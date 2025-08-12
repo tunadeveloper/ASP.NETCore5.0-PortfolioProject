@@ -1,120 +1,150 @@
 ﻿
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Dashboard";
     Layout = "~/Views/Shared/_adminLayout.cshtml";
 }
 
-<!-- Header -->
-
-            <!-- Card stats -->
-            <div class="row">
-                <div class="col-xl-3 col-md-6">
-                    <div class="card card-stats">
-                        <!-- Card body -->
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col">
-                                    <h5 class="card-title text-uppercase text-muted mb-0">Proje</h5>
-                                    <span class="h2 font-weight-bold mb-0">@ViewBag.v1</span>
-                                </div>
-                                <div class="col-auto">
-                                    <div class="icon icon-shape bg-gradient-red text-white rounded-circle shadow">
-                                        <i class="ni ni-active-40"></i>
-                                    </div>
-                                </div>
-                            </div>
-                            <p class="mt-3 mb-0 text-sm">
-                    <span class="text-nowrap">Toplam Proje Sayısı</span>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-3 col-md-6">
-                    <div class="card card-stats">
-                        <!-- Card body -->
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col">
-                                    <h5 class="card-title text-uppercase text-muted mb-0">Hİzmet</h5>
-                        <span class="h2 font-weight-bold mb-0">@ViewBag.v2</span>
-                                </div>
-                                <div class="col-auto">
-                                    <div class="icon icon-shape bg-gradient-orange text-white rounded-circle shadow">
-                                        <i class="ni ni-chart-pie-35"></i>
-                                    </div>
-                                </div>
-                            </div>
-                            <p class="mt-3 mb-0 text-sm">
-                                <span class="text-nowrap">Toplam Hizmet Sayısı</span>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-3 col-md-6">
-                    <div class="card card-stats">
-                        <!-- Card body -->
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col">
-                                    <h5 class="card-title text-uppercase text-muted mb-0">Yetenek</h5>
-                        <span class="h2 font-weight-bold mb-0">@ViewBag.v3</span>
-                                </div>
-                                <div class="col-auto">
-                                    <div class="icon icon-shape bg-gradient-green text-white rounded-circle shadow">
-                                        <i class="ni ni-money-coins"></i>
-                                    </div>
-                                </div>
-                            </div>
-                            <p class="mt-3 mb-0 text-sm">
-                                <span class="text-nowrap">Toplam Yetenek Sayısı</span>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-3 col-md-6">
-                    <div class="card card-stats">
-                        <!-- Card body -->
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col">
-                                    <h5 class="card-title text-uppercase text-muted mb-0">Deneyİm</h5>
-                        <span class="h2 font-weight-bold mb-0">@ViewBag.v4</span>
-                                </div>
-                                <div class="col-auto">
-                                    <div class="icon icon-shape bg-gradient-info text-white rounded-circle shadow">
-                                        <i class="ni ni-chart-bar-32"></i>
-                                    </div>
-                                </div>
-                            </div>
-                            <p class="mt-3 mb-0 text-sm">
-                                <span class="text-nowrap">Toplam Deneyim Sayısı</span>
-                            </p>
-                        </div>
-                    </div>
+<!-- Page Header -->
+<div class="page-header mb-4">
+    <div class="container-fluid">
+        <div class="row align-items-center">
+            <div class="col">
+                <h1 class="h3 mb-0 text-white">
+                    <i class="fas fa-tachometer-alt mr-3"></i>Dashboard
+                </h1>
+                <p class="text-white-50 mb-0">Portfolio projenizin genel durumunu takip edin</p>
+            </div>
+            <div class="col-auto">
+                <div class="d-flex align-items-center">
+                    <span class="badge badge-light badge-pill px-3 py-2 mr-2" style="font-size: 14px; font-weight: 600;">
+                        <i class="fas fa-calendar mr-1"></i>@DateTime.Now.ToString("dd MMMM yyyy")
+                    </span>
+                    <button class="btn btn-outline-light btn-sm" onclick="refreshDashboard()" style="border-radius: 8px;">
+                        <i class="fas fa-sync-alt mr-1"></i>Yenile
+                    </button>
                 </div>
             </div>
-<br />
-<br />
-<br />
-<br />
-<!-- Page content -->
-<div class="container-fluid mt--6">
-    <div class="row">
-        <div class="col-xl-12">
-            <div class="card">
-                <div class="card-header bg-transparent">
-                    <div class="row align-items-center">
-                        <div class="col">
-                            <h6 class="text-uppercase text-muted ls-1 mb-1">Grafik</h6>
-                            <h5 class="h3 mb-0">Yetenek Tablosu</h5>
-                        </div>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <!-- Chart -->
-                    <div class="chart">
-                        <canvas id="my-custom-skill-chart"></canvas>
+        </div>
+    </div>
+</div>
 
+<!-- Stats Cards -->
+<div class="row mb-4">
+    <div class="col-xl-3 col-md-6">
+        <div class="stats-card" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+            <div class="d-flex align-items-center justify-content-between">
+                <div>
+                    <h3 class="text-white mb-1">@ViewBag.v1</h3>
+                    <p class="text-white-50 mb-0">Toplam Proje</p>
+                </div>
+                <div class="icon-circle" style="background: rgba(255,255,255,0.2); width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                    <i class="fas fa-project-diagram fa-2x text-white"></i>
+                </div>
+            </div>
+            <div class="mt-3">
+                <span class="badge badge-light badge-pill px-3 py-2">
+                    <i class="fas fa-arrow-up mr-1"></i>Portfolio
+                </span>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-xl-3 col-md-6">
+        <div class="stats-card" style="background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);">
+            <div class="d-flex align-items-center justify-content-between">
+                <div>
+                    <h3 class="text-white mb-1">@ViewBag.v2</h3>
+                    <p class="text-white-50 mb-0">Toplam Hizmet</p>
+                </div>
+                <div class="icon-circle" style="background: rgba(255,255,255,0.2); width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                    <i class="fas fa-briefcase fa-2x text-white"></i>
+                </div>
+            </div>
+            <div class="mt-3">
+                <span class="badge badge-light badge-pill px-3 py-2">
+                    <i class="fas fa-check mr-1"></i>Aktif
+                </span>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-xl-3 col-md-6">
+        <div class="stats-card" style="background: linear-gradient(135deg, #ed8936 0%, #dd6b20 100%);">
+            <div class="d-flex align-items-center justify-content-between">
+                <div>
+                    <h3 class="text-white mb-1">@ViewBag.v3</h3>
+                    <p class="text-white-50 mb-0">Toplam Yetenek</p>
+                </div>
+                <div class="icon-circle" style="background: rgba(255,255,255,0.2); width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                    <i class="fas fa-hat-3 fa-2x text-white"></i>
+                </div>
+            </div>
+            <div class="mt-3">
+                <span class="badge badge-light badge-pill px-3 py-2">
+                    <i class="fas fa-star mr-1"></i>Uzman
+                </span>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-xl-3 col-md-6">
+        <div class="stats-card" style="background: linear-gradient(135deg, #4299e1 0%, #3182ce 100%);">
+            <div class="d-flex align-items-center justify-content-between">
+                <div>
+                    <h3 class="text-white mb-1">@ViewBag.v4</h3>
+                    <p class="text-white-50 mb-0">Toplam Deneyim</p>
+                </div>
+                <div class="icon-circle" style="background: rgba(255,255,255,0.2); width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                    <i class="fas fa-trophy fa-2x text-white"></i>
+                </div>
+            </div>
+            <div class="mt-3">
+                <span class="badge badge-light badge-pill px-3 py-2">
+                    <i class="fas fa-award mr-1"></i>Kariyer
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Quick Actions -->
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border: none; border-radius: 12px 12px 0 0;">
+                <h5 class="mb-0 text-white">
+                    <i class="fas fa-bolt mr-2"></i>Hızlı İşlemler
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-3 col-sm-6 mb-3">
+                        <a href="/Portfolio/CreatePortfolio/" class="btn btn-outline-primary btn-block p-3" style="border-radius: 12px; border: 2px solid #667eea; transition: all 0.3s ease;">
+                            <i class="fas fa-plus fa-2x mb-2 d-block"></i>
+                            <strong>Yeni Proje</strong>
+                            <small class="d-block text-muted">Portfolio'ye proje ekle</small>
+                        </a>
+                    </div>
+                    <div class="col-md-3 col-sm-6 mb-3">
+                        <a href="/Service/CreateService/" class="btn btn-outline-success btn-block p-3" style="border-radius: 12px; border: 2px solid #48bb78; transition: all 0.3s ease;">
+                            <i class="fas fa-briefcase fa-2x mb-2 d-block"></i>
+                            <strong>Yeni Hizmet</strong>
+                            <small class="d-block text-muted">Hizmet kataloğuna ekle</small>
+                        </a>
+                    </div>
+                    <div class="col-md-3 col-sm-6 mb-3">
+                        <a href="/Skill/CreateSkill/" class="btn btn-outline-warning btn-block p-3" style="border-radius: 12px; border: 2px solid #ed8936; transition: all 0.3s ease;">
+                            <i class="fas fa-hat-3 fa-2x mb-2 d-block"></i>
+                            <strong>Yeni Yetenek</strong>
+                            <small class="d-block text-muted">Teknik yetenek ekle</small>
+                        </a>
+                    </div>
+                    <div class="col-md-3 col-sm-6 mb-3">
+                        <a href="/Experience/CreateExperience/" class="btn btn-outline-info btn-block p-3" style="border-radius: 12px; border: 2px solid #4299e1; transition: all 0.3s ease;">
+                            <i class="fas fa-trophy fa-2x mb-2 d-block"></i>
+                            <strong>Yeni Deneyim</strong>
+                            <small class="d-block text-muted">Kariyer deneyimi ekle</small>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -122,45 +152,279 @@
     </div>
 </div>
 
+<!-- Charts Section -->
+<div class="row">
+    <div class="col-xl-8 col-lg-7">
+        <div class="card">
+            <div class="card-header" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border: none; border-radius: 12px 12px 0 0;">
+                <div class="row align-items-center">
+                    <div class="col">
+                        <h5 class="mb-0 text-white">
+                            <i class="fas fa-chart-bar mr-2"></i>Yetenek Grafiği
+                        </h5>
+                        <small class="text-white-50">Teknik yeteneklerinizin seviye dağılımı</small>
+                    </div>
+                    <div class="col-auto">
+                        <div class="btn-group btn-group-sm" role="group">
+                            <button type="button" class="btn btn-outline-light active" onclick="changeChartType('bar')">Bar</button>
+                            <button type="button" class="btn btn-outline-light" onclick="changeChartType('doughnut')">Doughnut</button>
+                            <button type="button" class="btn btn-outline-light" onclick="changeChartType('radar')">Radar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="chart-container" style="position: relative; height: 400px;">
+                    <canvas id="my-custom-skill-chart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-xl-4 col-lg-5">
+        <div class="card">
+            <div class="card-header" style="background: linear-gradient(135deg, #48bb78 0%, #38a169 100%); border: none; border-radius: 12px 12px 0 0;">
+                <h5 class="mb-0 text-white">
+                    <i class="fas fa-chart-pie mr-2"></i>Portfolio Özeti
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="portfolio-summary">
+                    <div class="summary-item d-flex justify-content-between align-items-center mb-3 p-3" style="background: #f8fafc; border-radius: 8px;">
+                        <div>
+                            <i class="fas fa-project-diagram text-primary mr-2"></i>
+                            <span class="font-weight-bold">Projeler</span>
+                        </div>
+                        <span class="badge badge-primary badge-pill px-3 py-2">@ViewBag.v1</span>
+                    </div>
+                    
+                    <div class="summary-item d-flex justify-content-between align-items-center mb-3 p-3" style="background: #f8fafc; border-radius: 8px;">
+                        <div>
+                            <i class="fas fa-briefcase text-success mr-2"></i>
+                            <span class="font-weight-bold">Hizmetler</span>
+                        </div>
+                        <span class="badge badge-success badge-pill px-3 py-2">@ViewBag.v2</span>
+                    </div>
+                    
+                    <div class="summary-item d-flex justify-content-between align-items-center mb-3 p-3" style="background: #f8fafc; border-radius: 8px;">
+                        <div>
+                            <i class="fas fa-hat-3 text-warning mr-2"></i>
+                            <span class="font-weight-bold">Yetenekler</span>
+                        </div>
+                        <span class="badge badge-warning badge-pill px-3 py-2">@ViewBag.v3</span>
+                    </div>
+                    
+                    <div class="summary-item d-flex justify-content-between align-items-center mb-3 p-3" style="background: #f8fafc; border-radius: 8px;">
+                        <div>
+                            <i class="fas fa-trophy text-info mr-2"></i>
+                            <span class="font-weight-bold">Deneyimler</span>
+                        </div>
+                        <span class="badge badge-info badge-pill px-3 py-2">@ViewBag.v4</span>
+                    </div>
+                </div>
+                
+                <div class="text-center mt-4">
+                    <a href="/Portfolio/Index/" class="btn btn-primary btn-block" style="border-radius: 12px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border: none;">
+                        <i class="fas fa-eye mr-2"></i>Tüm İçerikleri Görüntüle
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Recent Activity -->
+<div class="row mt-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header" style="background: linear-gradient(135deg, #ed8936 0%, #dd6b20 100%); border: none; border-radius: 12px 12px 0 0;">
+                <h5 class="mb-0 text-white">
+                    <i class="fas fa-history mr-2"></i>Son Aktiviteler
+                </h5>
+            </div>
+            <div class="card-body">
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-marker bg-success"></div>
+                        <div class="timeline-content">
+                            <h6 class="timeline-title">Dashboard Güncellendi</h6>
+                            <p class="timeline-text">Portfolio dashboard'u modern tasarımla yenilendi.</p>
+                            <small class="text-muted">@DateTime.Now.ToString("dd MMMM yyyy HH:mm")</small>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-marker bg-primary"></div>
+                        <div class="timeline-content">
+                            <h6 class="timeline-title">Yeni Tasarım Uygulandı</h6>
+                            <p class="timeline-text">Tüm admin sayfaları modern ve gösterişli tasarımla güncellendi.</p>
+                            <small class="text-muted">@DateTime.Now.ToString("dd MMMM yyyy HH:mm")</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .stats-card {
+        border-radius: 16px;
+        padding: 25px;
+        margin-bottom: 20px;
+        transition: all 0.3s ease;
+        border: none;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    }
+    
+    .stats-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+    }
+    
+    .icon-circle {
+        transition: all 0.3s ease;
+    }
+    
+    .stats-card:hover .icon-circle {
+        transform: scale(1.1);
+    }
+    
+    .page-header {
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .page-header::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+        z-index: -1;
+    }
+    
+    .btn-outline-primary:hover,
+    .btn-outline-success:hover,
+    .btn-outline-warning:hover,
+    .btn-outline-info:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+    
+    .summary-item {
+        transition: all 0.3s ease;
+    }
+    
+    .summary-item:hover {
+        transform: translateX(5px);
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+    
+    .timeline {
+        position: relative;
+        padding: 20px 0;
+    }
+    
+    .timeline-item {
+        position: relative;
+        padding-left: 40px;
+        margin-bottom: 30px;
+    }
+    
+    .timeline-marker {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        border: 4px solid white;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    
+    .timeline-content {
+        background: #f8fafc;
+        padding: 20px;
+        border-radius: 12px;
+        border-left: 4px solid #667eea;
+    }
+    
+    .timeline-title {
+        color: #2d3748;
+        margin-bottom: 8px;
+        font-weight: 600;
+    }
+    
+    .timeline-text {
+        color: #4a5568;
+        margin-bottom: 8px;
+    }
+    
+    .chart-container {
+        transition: all 0.3s ease;
+    }
+    
+    .btn-group .btn {
+        transition: all 0.3s ease;
+    }
+    
+    .btn-group .btn:hover {
+        transform: translateY(-1px);
+    }
+</style>
+
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
+    let currentChart = null;
+    let currentChartType = 'bar';
+    
     $(document).ready(function () {
+        loadSkillChart();
+    });
+    
+    function loadSkillChart() {
         $.ajax({
             url: '/Dashboard/SkillChartData',
             type: 'GET',
             success: function (result) {
                 const labels = result.map(x => x.title);
                 const data = result.map(x => x.value);
-
+                
+                if (currentChart) {
+                    currentChart.destroy();
+                }
+                
                 const ctx = document.getElementById('my-custom-skill-chart').getContext('2d');
-
-                new Chart(ctx, {
-                    type: 'bar',
+                
+                const chartConfig = {
+                    type: currentChartType,
                     data: {
                         labels: labels,
                         datasets: [{
-                            label: 'Yetenekler',
+                            label: 'Yetenek Seviyesi (%)',
                             data: data,
                             backgroundColor: [
-                                'rgba(0, 123, 255, 0.6)',
-                                'rgba(40, 167, 69, 0.6)',
-                                'rgba(255, 193, 7, 0.6)',
-                                'rgba(220, 53, 69, 0.6)',
-                                'rgba(108, 117, 125, 0.6)',
-                                'rgba(23, 162, 184, 0.6)'
+                                'rgba(102, 126, 234, 0.8)',
+                                'rgba(72, 187, 120, 0.8)',
+                                'rgba(237, 137, 54, 0.8)',
+                                'rgba(66, 153, 225, 0.8)',
+                                'rgba(245, 101, 101, 0.8)',
+                                'rgba(156, 163, 175, 0.8)'
                             ],
                             borderColor: [
-                                'rgba(0, 123, 255, 1)',
-                                'rgba(40, 167, 69, 1)',
-                                'rgba(255, 193, 7, 1)',
-                                'rgba(220, 53, 69, 1)',
-                                'rgba(108, 117, 125, 1)',
-                                'rgba(23, 162, 184, 1)'
+                                'rgba(102, 126, 234, 1)',
+                                'rgba(72, 187, 120, 1)',
+                                'rgba(237, 137, 54, 1)',
+                                'rgba(66, 153, 225, 1)',
+                                'rgba(245, 101, 101, 1)',
+                                'rgba(156, 163, 175, 1)'
                             ],
-                            borderWidth: 1,
-                            borderRadius: 8,
-                            barThickness: 30
+                            borderWidth: 2,
+                            borderRadius: currentChartType === 'bar' ? 8 : 0,
+                            barThickness: currentChartType === 'bar' ? 30 : 'auto'
                         }]
                     },
                     options: {
@@ -168,27 +432,28 @@
                         maintainAspectRatio: false,
                         layout: {
                             padding: {
-                                top: 10,
-                                bottom: 10,
-                                left: 0,
-                                right: 0
+                                top: 20,
+                                bottom: 20,
+                                left: 20,
+                                right: 20
                             }
                         },
                         legend: {
                             display: true,
                             labels: {
                                 fontColor: '#6c757d',
-                                fontSize: 14
+                                fontSize: 14,
+                                usePointStyle: true
                             }
                         },
-                        scales: {
+                        scales: currentChartType !== 'doughnut' && currentChartType !== 'radar' ? {
                             yAxes: [{
                                 gridLines: {
                                     color: 'rgba(0,0,0,0.05)'
                                 },
                                 ticks: {
                                     beginAtZero: true,
-                                    stepSize: 10,
+                                    stepSize: 20,
                                     max: 100,
                                     fontColor: '#6c757d',
                                     fontSize: 13
@@ -203,27 +468,44 @@
                                     fontSize: 13
                                 }
                             }]
-                        },
+                        } : {},
                         animation: {
-                            duration: 1000,
+                            duration: 1500,
                             easing: 'easeOutQuart'
                         },
                         tooltips: {
                             enabled: true,
-                            backgroundColor: 'rgba(0,0,0,0.7)',
+                            backgroundColor: 'rgba(0,0,0,0.8)',
                             titleFontColor: '#fff',
                             bodyFontColor: '#fff',
-                            borderColor: '#ddd',
-                            borderWidth: 1
+                            borderColor: '#667eea',
+                            borderWidth: 2,
+                            cornerRadius: 8
                         }
                     }
-                });
+                };
+                
+                currentChart = new Chart(ctx, chartConfig);
             },
             error: function (err) {
                 console.log("Hata oluştu:", err);
             }
         });
-    });
+    }
+    
+    function changeChartType(type) {
+        currentChartType = type;
+        
+        // Update active button
+        $('.btn-group .btn').removeClass('active');
+        $(`.btn-group .btn[onclick*="${type}"]`).addClass('active');
+        
+        loadSkillChart();
+    }
+    
+    function refreshDashboard() {
+        location.reload();
+    }
 </script>
 
 

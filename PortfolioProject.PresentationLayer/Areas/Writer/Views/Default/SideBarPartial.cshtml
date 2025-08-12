@@ -1,49 +1,128 @@
-﻿<nav class="sidebar sidebar-offcanvas" id="sidebar">
-    <ul class="nav">
+﻿<nav class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+        <div class="sidebar-brand">
+            <i class="fas fa-bars"></i>
+            <span>Menu</span>
+        </div>
+    </div>
+    
+    <ul class="nav flex-column">
         <li class="nav-item">
             <a class="nav-link" href="/Writer/Dashboard/Index">
-                <i class="fa fa-chart-line menu-icon"></i>
+                <i class="fas fa-chart-line me-3"></i>
                 <span class="menu-title">Dashboard</span>
             </a>
         </li>
+        
         <li class="nav-item">
             <a class="nav-link" href="/Writer/Message/ReceiverMessage">
-                <i class="fa fa-inbox menu-icon"></i> 
+                <i class="fas fa-inbox me-3"></i>
                 <span class="menu-title">Gelen Mesajlar</span>
             </a>
         </li>
+        
         <li class="nav-item">
             <a class="nav-link" href="/Writer/Message/SenderMessage">
-                <i class="fa fa-paper-plane menu-icon"></i> 
+                <i class="fas fa-paper-plane me-3"></i>
                 <span class="menu-title">Giden Mesajlar</span>
+            </a>
+        </li>
+        
+        <li class="nav-item">
+            <a class="nav-link" href="/Writer/Message/CreateMessage">
+                <i class="fas fa-edit me-3"></i>
+                <span class="menu-title">Mesaj Yaz</span>
             </a>
         </li>
 
         <li class="nav-item">
             <a class="nav-link" href="/Writer/Default/Index">
-                <i class="fa fa-bell menu-icon"></i>
+                <i class="fas fa-bell me-3"></i>
                 <span class="menu-title">Duyurular</span>
             </a>
         </li>
+        
         <li class="nav-item">
             <a class="nav-link" href="/Writer/Profile/Index">
-                <i class="fa fa-user menu-icon"></i>
+                <i class="fas fa-user me-3"></i>
                 <span class="menu-title">Profil</span>
             </a>
         </li>
-        <li class="nav-item">
-            <a class="nav-link" href="/Writer/Profile/Index">
-                <i class="fa fa-cog menu-icon"></i>
-                <span class="menu-title">Ayarlar</span>
-            </a>
-        </li>
+        
         <li class="nav-item">
             <a class="nav-link" href="/Writer/Login/LogOut">
-                <i class="fa fa-sign-out-alt menu-icon"></i>
+                <i class="fas fa-sign-out-alt me-3"></i>
                 <span class="menu-title">Çıkış Yap</span>
             </a>
         </li>
     </ul>
 </nav>
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
+<style>
+    .sidebar {
+        width: 280px;
+        height: calc(100vh - 80px);
+        position: fixed;
+        top: 80px;
+        left: 0;
+        z-index: 1020;
+        transition: all 0.3s ease;
+        overflow-y: auto;
+    }
+    
+    .sidebar-header {
+        padding: 1rem;
+        border-bottom: 1px solid var(--border-color);
+        margin-bottom: 1rem;
+    }
+    
+    .sidebar-brand {
+        display: flex;
+        align-items: center;
+        font-weight: 600;
+        color: var(--primary-color);
+    }
+    
+    .sidebar-brand i {
+        margin-right: 0.5rem;
+        font-size: 1.2rem;
+    }
+    
+    .nav-link {
+        display: flex;
+        align-items: center;
+        padding: 1rem 1.5rem;
+        color: var(--text-secondary);
+        text-decoration: none;
+        border-radius: 10px;
+        margin: 0.25rem 1rem;
+        transition: all 0.3s ease;
+    }
+    
+    .nav-link:hover {
+        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        color: white;
+        transform: translateX(10px);
+        text-decoration: none;
+    }
+    
+    .nav-link.active {
+        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+        color: white;
+    }
+    
+    .menu-title {
+        font-weight: 500;
+    }
+    
+    @@media (max-width: 768px) {
+        .sidebar {
+            transform: translateX(-100%);
+            top: 60px;
+        }
+        
+        .sidebar.show {
+            transform: translateX(0);
+        }
+    }
+</style>
