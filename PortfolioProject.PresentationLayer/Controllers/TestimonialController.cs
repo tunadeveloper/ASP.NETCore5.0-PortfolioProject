@@ -29,6 +29,7 @@ namespace PortfolioProject.PresentationLayer.Controllers
         public IActionResult CreateTestimonial(Testimonial testimonial)
         {
             _testimonialService.TInsert(testimonial);
+            TempData["SuccessMessage"] = "Referans başarıyla eklendi!";
             return RedirectToAction("Index");
         }
 
@@ -42,6 +43,7 @@ namespace PortfolioProject.PresentationLayer.Controllers
         public IActionResult UpdateTestimonial(Testimonial testimonial)
         {
             _testimonialService.TUpdate(testimonial);
+            TempData["SuccessMessage"] = "Referans başarıyla güncellendi!";
             return RedirectToAction("Index");
         }
 

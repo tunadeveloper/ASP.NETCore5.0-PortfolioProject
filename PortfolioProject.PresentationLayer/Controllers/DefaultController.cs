@@ -10,15 +10,24 @@ namespace PortfolioProject.PresentationLayer.Controllers
     public class DefaultController : Controller
     {
         private readonly IMessageService _messageService;
+        private readonly IFeatureService _featureService;
+        private readonly ISocialMediaService _socialMediaService;
 
-        public DefaultController(IMessageService messageService)
+        public DefaultController(IMessageService messageService, IAboutService aboutService, ISocialMediaService socialMediaService, IFeatureService featureService)
         {
             _messageService = messageService;
+            _socialMediaService = socialMediaService;
+            _featureService = featureService;
         }
 
         public IActionResult Index()
         {
-            return View();
+            var viewModel = new Models.FeatureAndSocialMediaViewModel
+            {
+                SocialMedias = _socialMediaService.TGetList(),
+                Features = _featureService.TGetList()
+            };
+            return View(viewModel);
         }
 
         public PartialViewResult HeaderPartial()
